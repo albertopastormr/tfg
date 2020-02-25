@@ -1,0 +1,8 @@
+xmltodict
+plotly
+plotly-express
+django-utils
+django
+bs4
+requests
+

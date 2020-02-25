@@ -1,0 +1,284 @@
+{
+    "inputs": {
+        "location": {
+            "latitude": 40.439,
+            "longitude": -3.732,
+            "elevation": 617.0
+        },
+        "meteo_data": {
+            "radiation_db": "PVGIS-SARAH",
+            "meteo_db": "ERA-Interim",
+            "year_min": 2005,
+            "year_max": 2016,
+            "use_horizon": true,
+            "horizon_db": "DEM-calculated"
+        },
+        "plane": {
+            "fixed": {
+                "slope": {
+                    "value": 35.0,
+                    "optimal": false
+                },
+                "azimuth": {
+                    "value": 0.0,
+                    "optimal": false
+                }
+            }
+        },
+        "time_format": "local"
+    },
+    "outputs": {
+        "daily_profile": [
+            {
+                "month": 1,
+                "time": "00:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "01:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "02:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "03:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "04:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "05:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "06:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "07:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "08:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "09:00",
+                "G(i)": 112.0,
+                "Gb(i)": 80.74,
+                "Gd(i)": 30.49
+            },
+            {
+                "month": 1,
+                "time": "10:00",
+                "G(i)": 327.59,
+                "Gb(i)": 233.0,
+                "Gd(i)": 91.55
+            },
+            {
+                "month": 1,
+                "time": "11:00",
+                "G(i)": 480.54,
+                "Gb(i)": 350.87,
+                "Gd(i)": 124.72
+            },
+            {
+                "month": 1,
+                "time": "12:00",
+                "G(i)": 591.35,
+                "Gb(i)": 441.78,
+                "Gd(i)": 143.25
+            },
+            {
+                "month": 1,
+                "time": "13:00",
+                "G(i)": 629.85,
+                "Gb(i)": 469.95,
+                "Gd(i)": 153.04
+            },
+            {
+                "month": 1,
+                "time": "14:00",
+                "G(i)": 626.47,
+                "Gb(i)": 469.67,
+                "Gd(i)": 150.04
+            },
+            {
+                "month": 1,
+                "time": "15:00",
+                "G(i)": 531.17,
+                "Gb(i)": 388.63,
+                "Gd(i)": 136.93
+            },
+            {
+                "month": 1,
+                "time": "16:00",
+                "G(i)": 417.61,
+                "Gb(i)": 303.68,
+                "Gd(i)": 109.86
+            },
+            {
+                "month": 1,
+                "time": "17:00",
+                "G(i)": 252.46,
+                "Gb(i)": 181.88,
+                "Gd(i)": 68.58
+            },
+            {
+                "month": 1,
+                "time": "18:00",
+                "G(i)": 4.14,
+                "Gb(i)": 2.97,
+                "Gd(i)": 1.15
+            },
+            {
+                "month": 1,
+                "time": "19:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "20:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "21:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "22:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            },
+            {
+                "month": 1,
+                "time": "23:00",
+                "G(i)": 0.0,
+                "Gb(i)": 0.0,
+                "Gd(i)": 0.0
+            }
+        ]
+    },
+    "meta": {
+        "inputs": {
+            "location": {
+                "description": "Selected location",
+                "variables": {
+                    "latitude": {
+                        "description": "Latitude",
+                        "units": "decimal degree"
+                    },
+                    "longitude": {
+                        "description": "Longitude",
+                        "units": "decimal degree"
+                    },
+                    "elevation": {
+                        "description": "Elevation",
+                        "units": "m"
+                    }
+                }
+            },
+            "meteo_data": {
+                "description": "Sources of meteorological data",
+                "variables": {
+                    "radiation_db": {
+                        "description": "Solar radiation database"
+                    },
+                    "meteo_db": {
+                        "description": "Database used for meteorological variables other than solar radiation"
+                    },
+                    "year_min": {
+                        "description": "First year of the calculations"
+                    },
+                    "year_max": {
+                        "description": "Last year of the calculations"
+                    },
+                    "use_horizon": {
+                        "description": "Include horizon shadows"
+                    },
+                    "horizon_db": {
+                        "description": "Source of horizon data"
+                    }
+                }
+            },
+            "plane": {
+                "description": "plane",
+                "fields": {
+                    "slope": {
+                        "description": "Inclination angle from the horizontal plane",
+                        "units": "degree"
+                    },
+                    "azimuth": {
+                        "description": "Orientation (azimuth) angle of the (fixed) PV system (0 = S, 90 = W, -90 = E)",
+                        "units": "degree"
+                    }
+                }
+            },
+            "time_format": [
+                {
+                    "description": "Local or UTC"
+                }
+            ]
+        },
+        "outputs": {
+            "daily_profile": {
+                "type": "time series",
+                "timestamp": "hourly",
+                "variables": {
+                    "G(i)": {
+                        "description": " Global irradiance on a fixed plane",
+                        "units": "W/m2"
+                    },
+                    "Gb(i)": {
+                        "description": "Direct irradiance on a fixed plane",
+                        "units": "W/m2"
+                    },
+                    "Gd(i)": {
+                        "description": "Diffuse irradiance on a fixed plane",
+                        "units": "W/m2"
+                    }
+                }
+            }
+        }
+    }
+}
