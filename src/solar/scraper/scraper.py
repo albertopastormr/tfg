@@ -6,6 +6,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
+import glob
+import os
+
 import time
 from shutil import copyfile
 
@@ -14,7 +17,7 @@ class PVGIS:
     def __init__(self):
         
         # Load drive with chrome
-        self.driver = webdriver.Chrome('./chromedriver')
+        self.driver = webdriver.Chrome('src/solar/scraper/chromedriver')
 
         # Access page, accept cookies and reload page
         self.driver.get(self.url_pvg)
@@ -41,8 +44,8 @@ class PVGIS:
         self.driver.find_element_by_id('aspect').clear()
         self.driver.find_element_by_id('aspect').send_keys(angle)
 
-    def put_option_optimize_slope(self):
-        self.driver.find_element_by_id('optimalangles').click()
+    def put_option_optimize_slope(self, id_angle="optimalangles"):
+        self.driver.find_element_by_id(str(id_angle)).click()
 
     def change_monthly_data(self):
         self.driver.find_element(By.XPATH, "//a[@href='#MR']").click();
@@ -53,30 +56,65 @@ class PVGIS:
     def change_hourly_data(self):
         self.driver.find_element(By.XPATH, "//a[@href='#HR']").click();
 
-    def download_json(self):
-        self.driver.find_element_by_id('pvgriddownloadjson').click()
+    def download_json(self, id_json="pvgriddownloadjson"):
+        self.driver.find_element_by_id(str(id_json)).click()
     
     def download_csv(self):
         self.driver.find_element_by_id('pvgriddownloadcsv').click()
 
-    # TODO RELATIVE PATH
+    def select_angle(self, angle=0):
+        self.driver.find_element_by_id('selectrad').click()
+        self.driver.find_element_by_id('mangle').send_keys(str(angle))
+
+    def select_start_year(self, start_year=2016):
+        time.sleep(0.2)
+        el_last = self.driver.find_element_by_id('mstartyear')
+        for option in el_last.find_elements_by_tag_name('option'):
+            if option.text == str(start_year):
+                option.click()
+                break
+
+    def select_end_year(self, last_year=2016):
+        time.sleep(0.2)
+        el_last = self.driver.find_element_by_id('mendyear')
+        for option in el_last.find_elements_by_tag_name('option'):
+            if option.text == str(last_year):
+                option.click()
+                break
+
     def copy_dataset_downloads_to_project(self):
         time.sleep(1)
-        copyfile("/home/ivanfermena/Downloads/PVdata_40.133_-3.779_SA_crystSi_1kWp_14_36deg_-2deg.json", "../../../data/scraper/PVdata_40.133_-3.779_SA_crystSi_1kWp_14_36deg_-2deg.json")
 
+        list_of_files = glob.glob('/home/ivanfermena/Downloads/*.json') # * means all if need specific format then *.csv
+        latest_file = max(list_of_files, key=os.path.getctime)
+
+        copyfile(latest_file, "data/scraper/PVdata_webscraper.json")
+
+    def disconect(self):
+        time.sleep(1)
+        self.driver.close()
+
+
+# ------------------- USE CASE ------------------
+
+def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False):
+    pvgis = PVGIS()
+
+    pvgis.set_latitude_longitude_value(str(latitude), str(longitude))
+    pvgis.change_monthly_data()
+    pvgis.select_start_year(start_year=start_year)
+    pvgis.select_end_year(last_year=last_year)
+
+    if angle:
+        pvgis.select_angle(angle)
+    else:
+        pvgis.put_option_optimize_slope(id_angle="optrad")
+
+    pvgis.download_json(id_json="monthdownloadjson")
+    pvgis.copy_dataset_downloads_to_project()
+
+    pvgis.disconect()
 
 if __name__== "__main__":
-    pvgis = PVGIS()
-    pvgis.set_latitude_longitude_value(latitude = "40.133", longitude = "-3.779")
-    
-    pvgis.set_inclination_value(angle = '45')
-    
-    pvgis.set_orientation_value(angle = '100')
 
-    pvgis.put_option_optimize_slope()
-
-    # pvgis.change_monthly_data()
-
-    pvgis.download_json()
-
-    pvgis.copy_dataset_downloads_to_project()
+    extract_data_monthly()

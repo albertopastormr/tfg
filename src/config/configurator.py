@@ -6,7 +6,7 @@ import yaml
 """
 
 class Configurator:
-    def __init__(self, config_path = 'config.yaml', year = 2016):
+    def __init__(self, config_path = 'src/config/config.yaml', year = 2016):
         self.config_path = config_path
         self.year = year
         self.data = self.read_config()
@@ -24,7 +24,3 @@ class Configurator:
 
     def build_dict(self, seq, key):
         return dict((d[key], dict(d, index=index)) for (index, d) in enumerate(seq))
-
-if __name__== "__main__":
-    config = Configurator(config_path = 'config.yaml', year = 2016)
-    print(config.get_data_year(year = 2016))
