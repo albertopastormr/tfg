@@ -11,7 +11,11 @@ class Input_energy:
         self.df_sensor = []
 
     def extract_csv_to_dataframe(self):
-        # Limpiamos los datos
+        """ Extrae los datos del csv y los convierte en un dataframe
+        
+        Returns:
+            Dataframe -- Dataframe con los datos obtenidos del csv
+        """
         with open(self.config.get_where(input_type = self.type_data)) as csv_file:
             self.df_sensor = pd.read_csv(csv_file) 
 
@@ -19,6 +23,11 @@ class Input_energy:
         return self.df_sensor
 
     def group_by_months(self):
+        """ Agrupa por meses y realiza la suma del consumo
+        
+        Returns:
+            Dataframe -- Suma de consumos degun la fecha en meses
+        """
         self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.month
 
         self.df_sensor = self.df_sensor[["fecha","consumo"]]

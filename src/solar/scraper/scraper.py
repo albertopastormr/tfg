@@ -13,6 +13,8 @@ import time
 from shutil import copyfile
 
 class PVGIS:
+    """ API. Clase que se encarga de todo la interaccion con la web de PVGIS y scrapea para obtener los datos.
+    """
     url_pvg = "https://re.jrc.ec.europa.eu/pvg_tools/en/tools.html"
     def __init__(self):
         
@@ -31,58 +33,98 @@ class PVGIS:
         self.best_optimize_angle = False
 
     def set_latitude_longitude_value(self, latitude = 0,longitude = 0):
+        """ Se dirige a una longitud y latitud de la interfaz
+        
+        Keyword Arguments:
+            latitude {int} -- [description] (default: {0})
+            longitude {int} -- [description] (default: {0})
+        """
         self.driver.find_element_by_id('inputLat').send_keys(latitude)
         self.driver.find_element_by_id('inputLon').send_keys(longitude)
         self.driver.find_element_by_id('btninputLatLon').click()
         time.sleep(1)
 
-    def set_inclination_value(self, angle = 0):
-        self.driver.find_element_by_id('angle').clear()
-        self.driver.find_element_by_id('angle').send_keys(angle)
-
-    def set_orientation_value(self, angle = 0):
-        self.driver.find_element_by_id('aspect').clear()
-        self.driver.find_element_by_id('aspect').send_keys(angle)
+    def set_atributte_value(self, id_angle, angle = 0):
+        """Inserta un valor a una determinada propiedad de la interfaz de usuario. Un input
+        Uso: Orientacion y Inclinacion
+        
+        Arguments:
+            id_angle {[type]} -- [description]
+        
+        Keyword Arguments:
+            angle {int} -- [description] (default: {0})
+        """
+        self.driver.find_element_by_id(id_angle).clear()
+        self.driver.find_element_by_id(id_angle).send_keys(angle)
 
     def put_option_optimize_slope(self, id_angle="optimalangles"):
+        """
+        
+        Keyword Arguments:
+            id_angle {str} -- [description] (default: {"optimalangles"})
+        """
         self.driver.find_element_by_id(str(id_angle)).click()
 
-    def change_monthly_data(self):
-        self.driver.find_element(By.XPATH, "//a[@href='#MR']").click();
-
-    def change_daily_data(self):
-        self.driver.find_element(By.XPATH, "//a[@href='#DR']").click();
-
-    def change_hourly_data(self):
-        self.driver.find_element(By.XPATH, "//a[@href='#HR']").click();
+    def change_type_analysis_data(self, type_changed):
+        """ Cambia a la opcion de analisis:
+            - Horas: '#HR'
+            - Diario: '#DR'
+            - Mensual: '#MR'
+        """
+        self.driver.find_element(By.XPATH, '//a[@href="'+ type_changed + '"]').click();
 
     def download_json(self, id_json="pvgriddownloadjson"):
+        """ Descarga el json a la carpeta de descargas
+        """
         self.driver.find_element_by_id(str(id_json)).click()
     
-    def download_csv(self):
-        self.driver.find_element_by_id('pvgriddownloadcsv').click()
+    def download_csv(self, id_csv='pvgriddownloadcsv'):
+        """ Descarga el csv a la carpeta de descargas
+        """
+        self.driver.find_element_by_id(str(id_csv)).click()
 
-    def select_angle(self, angle=0):
-        self.driver.find_element_by_id('selectrad').click()
-        self.driver.find_element_by_id('mangle').send_keys(str(angle))
+    def select_angle(self, id_select="selectrad", id_angle="mangle" ,angle=0):
+        """ Selecciona la opcion de angulo y le inserta el que se quiera.
+        
+        Keyword Arguments:
+            id_select {str} -- [description] (default: {"selectrad"})
+            id_angle {str} -- [description] (default: {"mangle"})
+            angle {int} -- [description] (default: {0})
+        """
+        self.driver.find_element_by_id(id_select).click()
+        self.driver.find_element_by_id(id_angle).send_keys(str(angle))
 
-    def select_start_year(self, start_year=2016):
+    def select_start_year(self, id_type='mstartyear', start_year=2016):
+        """ Selecciona dentro de las opciones el anyo que quieras como inicio
+        
+        Keyword Arguments:
+            id_type {str} -- [description] (default: {'mstartyear'})
+            start_year {int} -- [description] (default: {2016})
+        """
         time.sleep(0.2)
-        el_last = self.driver.find_element_by_id('mstartyear')
+        el_last = self.driver.find_element_by_id(id_type)
         for option in el_last.find_elements_by_tag_name('option'):
             if option.text == str(start_year):
                 option.click()
                 break
 
-    def select_end_year(self, last_year=2016):
+    def select_end_year(self, id_type='mendyear' ,last_year=2016):
+        """ Selecciona dentro de las opciones el anyo que quieras como final
+        
+        Keyword Arguments:
+            id_type {str} -- [description] (default: {'mendyear'})
+            last_year {int} -- [description] (default: {2016})
+        """
         time.sleep(0.2)
-        el_last = self.driver.find_element_by_id('mendyear')
+        el_last = self.driver.find_element_by_id(id_type)
         for option in el_last.find_elements_by_tag_name('option'):
             if option.text == str(last_year):
                 option.click()
                 break
 
     def copy_dataset_downloads_to_project(self):
+        """Copia el ultimo archivo descargado dentro de la carpeta del proyecto
+        """
         time.sleep(1)
 
         list_of_files = glob.glob('/home/ivanfermena/Downloads/*.json') # * means all if need specific format then *.csv
@@ -91,6 +133,8 @@ class PVGIS:
         copyfile(latest_file, "data/scraper/PVdata_webscraper.json")
 
     def disconect(self):
+        """Desconecta el driver del scraper. Cierra navegador.
+        """
         time.sleep(1)
         self.driver.close()
 
@@ -98,12 +142,21 @@ class PVGIS:
 # ------------------- USE CASE ------------------
 
 def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False):
+    """ Realiza el caso de uso que obtienen el numero de paneles solares necesarios para suplir el consumo
+    
+    Keyword Arguments:
+        latitude {str} -- [description] (default: {"40.568"})
+        longitude {str} -- [description] (default: {"-3.505"})
+        start_year {int} -- [description] (default: {2016})
+        last_year {int} -- [description] (default: {2016})
+        angle {bool} -- [description] (default: {False})
+    """
     pvgis = PVGIS()
 
     pvgis.set_latitude_longitude_value(str(latitude), str(longitude))
-    pvgis.change_monthly_data()
+    pvgis.change_type_analysis_data(type_changed="#MR")
     pvgis.select_start_year(start_year=start_year)
-    pvgis.select_end_year(last_year=last_year)
+    pvgis.select_end_year(id_type='mendyear', last_year=last_year)
 
     if angle:
         pvgis.select_angle(angle)
@@ -114,7 +167,3 @@ def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2
     pvgis.copy_dataset_downloads_to_project()
 
     pvgis.disconect()
-
-if __name__== "__main__":
-
-    extract_data_monthly()

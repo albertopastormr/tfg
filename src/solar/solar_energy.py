@@ -12,7 +12,11 @@ class Solar_energy:
         self.type_data = type_data 
 
     def extract_json_to_dataframe(self):
-        # Limpiamos los datos
+        """ Extrae los datos del json y los convierte en un dataframe
+        
+        Returns:
+            Dataframe -- Dataframe con los datos obtenidos del json
+        """
         with open(self.config.get_where(input_type = self.type_data)) as json_file:
             self.data = json.load(json_file)
             return pd.DataFrame(self.data["outputs"][self.type_data])

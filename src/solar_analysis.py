@@ -8,6 +8,7 @@ import pandas as pd
 
 import matplotlib.pyplot as plt
 
+# TODO Mejorar metodo para que realice un analisis mas generico. MUY SUCIO - REFACTORIZAR
 def analysis_monthly():
 
     config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
