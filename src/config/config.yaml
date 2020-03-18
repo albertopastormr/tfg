@@ -4,6 +4,10 @@
     path: "data/sensor/2018_input_sensor.csv"
     format: csv
 2016:
+  - type: hourly
+    directory: 1
+    path: "data/scraper/PVdata_webscraper.json"
+    format: json
   - type: daily
     directory: 1
     path: "input/2016_year"

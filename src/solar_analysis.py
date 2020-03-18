@@ -2,6 +2,7 @@
 
 from solar.solar_energy import Solar_energy
 from solar.input_energy import Input_energy
+from solar.solar_batterie import Batteries
 from config.configurator import Configurator
 
 import pandas as pd
@@ -67,8 +68,32 @@ def analysis_monthly():
 def analysis_daily():
     return 0
 
-def analysis_hourly():
-    return 0
+def analysis_hourly(solar_batterie=False):
+
+    config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
+    input_solar = Solar_energy(configurator=config_solar, type_data="hourly")
+
+    config_sensor = Configurator(config_path = 'src/config/config.yaml', year = 2018)
+    input_sensor = Input_energy(configurator=config_sensor)
+
+    df_solar = input_solar.extract_json_to_dataframe()
+
+    # Baterias o no
+    if solar_batterie:
+
+        # Agrupamos por dia la energia fotovoltaica obtenida
+        df_solar_day = input_solar.group_by_hours().to_frame()
+        print(df_solar_day)
+
+        # Agrupamos el consumo por dia
+
+        # Calculamos el uso de bateria para cada dia y alamacenamos en un array
+
+        # Motramos grafica con consumo inicial
+
+        #return solar_batterie.calculate_consume_saving()
+    else:
+        return "hola"
 
 
 if __name__== "__main__":

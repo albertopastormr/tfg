@@ -10,6 +10,7 @@ class Solar_energy:
     def __init__(self, configurator, type_data):
         self.config = configurator
         self.type_data = type_data 
+        self.df_solar = []
 
     def extract_json_to_dataframe(self):
         """ Extrae los datos del json y los convierte en un dataframe
@@ -19,17 +20,27 @@ class Solar_energy:
         """
         with open(self.config.get_where(input_type = self.type_data)) as json_file:
             self.data = json.load(json_file)
-            return pd.DataFrame(self.data["outputs"][self.type_data])
+            self.df_solar = pd.DataFrame(self.data["outputs"][self.type_data])
+            return self.df_solar
 
     def get_data(self):
         return self.data
 
-    def number_panels_compare_consume(self, df_sensor_month):
-        """Metodo que compara con un dataset del mismo tipo y saca el numero placas para superar el consumo
+    def get_df_solar(self):
+        return self.df_solar
+
+    def group_by_hours(self):
+        """ Agrupa por dias y realiza la suma de energia solar
         
-        Arguments:
-            df_sensor_month {[type]} -- [description]
+        Returns:
+            Dataframe -- Suma de consumos degun la fecha en meses
         """
-        print(df_sensor_month)
-        #return self.data.where(self.data.values==self.df_sensor_month.values)
+        self.df_solar = self.df_solar[[self.df_solar.columns[0],"time"]]
+        self.df_solar.columns = ['solar_power', 'time']
+
+        self.df_solar["time"] = self.df_solar["time"].str[:8]
+
+        self.df_solar = self.df_solar[["time","solar_power"]]
+
+        return self.df_solar.groupby("time")["solar_power"].sum()
         

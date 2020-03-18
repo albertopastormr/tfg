@@ -155,7 +155,7 @@ def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2
 
     pvgis.set_latitude_longitude_value(str(latitude), str(longitude))
     pvgis.change_type_analysis_data(type_changed="#MR")
-    pvgis.select_start_year(start_year=start_year)
+    pvgis.select_start_year(id_type='mstartyear', start_year=start_year)
     pvgis.select_end_year(id_type='mendyear', last_year=last_year)
 
     if angle:
@@ -167,3 +167,24 @@ def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2
     pvgis.copy_dataset_downloads_to_project()
 
     pvgis.disconect()
+
+def extract_data_hourly(latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False, aspect=False):
+
+    pvgis = PVGIS()
+
+    pvgis.set_latitude_longitude_value(str(latitude), str(longitude))
+    pvgis.change_type_analysis_data(type_changed="#HR")
+    pvgis.select_start_year(id_type='hstartyear', start_year=start_year)
+    pvgis.select_end_year(id_type='hendyear', last_year=last_year)
+
+    if angle & aspect:
+        pvgis.set_atributte_value(id_angle="hourlyangle", angle = angle)
+        pvgis.set_atributte_value(id_angle="hourlyaspect", angle = aspect)
+    else:
+        pvgis.put_option_optimize_slope(id_angle="hourlyoptimalangles")
+
+    pvgis.download_json(id_json="hourlydownloadjson")
+    pvgis.copy_dataset_downloads_to_project()
+
+    pvgis.disconect()
+
