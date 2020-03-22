@@ -19,9 +19,10 @@ def generate_analysis_hours():
 
     #scraper.extract_data_hourly(latitude = "40.568", longitude = "-3.505", start_year=2010, last_year=2010)
 
-    bt = Batteries(number_serie=2, power=80, min_discharging_percent=50)
+    bt = Batteries(number_serie=2, power=80, min_discharging_percent=0)
 
-    solar_analysis.analysis_hourly(solar_batterie = bt)
+    #solar_analysis.analysis_hourly(solar_batterie = bt)
+    solar_analysis.analysis_hourly(solar_batterie = False)
 
 if __name__== "__main__":
     

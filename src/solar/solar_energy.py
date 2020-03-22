@@ -30,7 +30,7 @@ class Solar_energy:
     def get_df_solar(self):
         return self.df_solar
 
-    def group_by_hours(self):
+    def group_by_hours(self, is_wattios=False, with_batterie=True):
         """ Agrupa por dias y realiza la suma de energia solar
         
         Returns:
@@ -39,10 +39,11 @@ class Solar_energy:
         self.df_solar = self.df_solar[[self.df_solar.columns[0],"time"]]
         self.df_solar.columns = ['solar_power', 'time']
 
-        self.df_solar["fecha"] = self.df_solar["time"].str[4:8]
+        self.df_solar["fecha"] = self.df_solar["time"].str[4:8] if with_batterie else self.df_solar["time"].str[4:11]
+
         self.df_solar = self.df_solar[["fecha","solar_power"]]
 
-        self.df_solar['solar_power'] = self.df_solar['solar_power'].apply(lambda x: x*self.num_panels)
+        self.df_solar['solar_power'] = self.df_solar['solar_power'].apply(lambda x: (x*self.num_panels)/1000) if is_wattios else self.df_solar['solar_power'].apply(lambda x: x*self.num_panels)
         
         return self.df_solar.groupby("fecha")["fecha","solar_power"].sum().reset_index()
         

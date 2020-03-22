@@ -3,6 +3,13 @@ import json
 
 class Batteries:
     def __init__(self, number_serie=0, power=100, min_discharging_percent=50):
+        """[summary]
+        
+        Keyword Arguments:
+            number_serie {int} -- [description] (default: {0})
+            power {int} -- Kw/h (default: {100})
+            min_discharging_percent {int} -- [description] (default: {50})
+        """
         self.number_serie = number_serie
         self.power = power
         self.min_discharging_percent = min_discharging_percent

@@ -22,7 +22,7 @@ class Input_energy:
     def get_df_sensor(self):
         return self.df_sensor
 
-    def group_by(self, group_by="month"):
+    def group_by(self, group_by="month", date_format='%m%d'):
         """ Agrupa por lo que le indiquese en el argumento y realiza la suma del consumo
         
         Keyword Arguments:
@@ -36,6 +36,6 @@ class Input_energy:
         if group_by is "month":
             self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.month
         else:
-            self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.strftime('%m%d')
+            self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.strftime(date_format)
 
         return self.df_sensor.groupby("fecha")["consumo"].sum().reset_index()

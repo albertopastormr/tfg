@@ -79,12 +79,15 @@ def analysis_hourly(solar_batterie=False):
     input_solar.extract_json_to_dataframe()
     input_sensor.extract_csv_to_dataframe()
 
+    consume_ret = []
+    extra_information = []
+
     # Baterias o no
     if solar_batterie:
 
         # Agrupamos por dia la energia fotovoltaica obtenida
-        df_solar_day = input_solar.group_by_hours()
-        #print(df_solar_day.columns.values)
+        df_solar_day = input_solar.group_by_hours(is_wattios=True, with_batterie=True)
+        #print(df_solar_day)
 
         # Agrupamos el consumo por dia
         df_sensor_hours = input_sensor.group_by(group_by="day")
@@ -93,18 +96,38 @@ def analysis_hourly(solar_batterie=False):
 
         # Calculamos el uso de bateria para cada dia y almacenamos en un array
 
-        consume_ret = []
-
         for index, row in df_sensor_hours.iterrows():
-            consume_ret.append(solar_batterie.calculate_consume_saving(consume=df_sensor_hours['consumo'].iloc[index], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
+            consume_ret.append(solar_batterie.calculate_consume_saving(consume=row['consumo'], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
 
         # Motramos grafica con consumo inicial
+        # TODO
+        print(consume_ret)
+
+    else:
+
+        # Agrupamos los dos dataframes por horas
+        df_solar_day = input_solar.group_by_hours(is_wattios=True, with_batterie=False)[1:]
+
+        df_sensor_hours = input_sensor.group_by(group_by="day",date_format='%m%d:%H')
+        df_sensor_hours = df_sensor_hours[['fecha','consumo']]
+
+        # Calculo cuanta energia segun consumo por hora tenemos que comprar (array)
+        # Calculamos al final del dia cuanto pagamos (array)
+        acumulation_day = 0
+        for index, row in df_sensor_hours.iterrows():
+            consume = row['consumo'] - df_solar_day['solar_power'].iloc[index]
+            consume_ret.append(consume)
+            acumulation_day = acumulation_day + consume
+            if (index % 24) == 1:
+                extra_information.append(acumulation_day)
+                acumulation_day = 0
+
+        extra_information.append(acumulation_day)
+
+        # Mostramos graficamente
         
 
-        return consume_ret
-    else:
-        return "hola"
-
+    return consume_ret, extra_information
 
 if __name__== "__main__":
     
