@@ -17,9 +17,9 @@ def generate_analysis_hours():
             - No disponemos de baterias: Obtenemos un analisis por hora de coste y cuanto cubrimos por energia solar. 
     """
 
-    scraper.extract_data_hourly(latitude = "40.568", longitude = "-3.505", start_year=2010, last_year=2010)
+    #scraper.extract_data_hourly(latitude = "40.568", longitude = "-3.505", start_year=2010, last_year=2010)
 
-    bt = Batteries(number_serie=2, power=80, min_discharging_percent=50, power_solar_saving=200)
+    bt = Batteries(number_serie=2, power=80, min_discharging_percent=50)
 
     solar_analysis.analysis_hourly(solar_batterie = bt)
 

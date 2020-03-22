@@ -22,14 +22,20 @@ class Input_energy:
     def get_df_sensor(self):
         return self.df_sensor
 
-    def group_by_months(self):
-        """ Agrupa por meses y realiza la suma del consumo
+    def group_by(self, group_by="month"):
+        """ Agrupa por lo que le indiquese en el argumento y realiza la suma del consumo
         
+        Keyword Arguments:
+            group_by {str} -- ES el termino por el que agrupa la fecha (default: {"month"})
+            - "month"
+            - "hour"
+            - "day"
         Returns:
             Dataframe -- Suma de consumos degun la fecha en meses
         """
-        self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.month
+        if group_by is "month":
+            self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.month
+        else:
+            self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.strftime('%m%d')
 
-        self.df_sensor = self.df_sensor[["fecha","consumo"]]
-
-        return self.df_sensor.groupby("fecha")["consumo"].sum()
+        return self.df_sensor.groupby("fecha")["consumo"].sum().reset_index()

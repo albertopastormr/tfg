@@ -7,10 +7,11 @@ import json
 """
 
 class Solar_energy:
-    def __init__(self, configurator, type_data):
+    def __init__(self, configurator, type_data, num_panels=1):
         self.config = configurator
         self.type_data = type_data 
         self.df_solar = []
+        self.num_panels = num_panels
 
     def extract_json_to_dataframe(self):
         """ Extrae los datos del json y los convierte en un dataframe
@@ -38,9 +39,10 @@ class Solar_energy:
         self.df_solar = self.df_solar[[self.df_solar.columns[0],"time"]]
         self.df_solar.columns = ['solar_power', 'time']
 
-        self.df_solar["time"] = self.df_solar["time"].str[:8]
+        self.df_solar["fecha"] = self.df_solar["time"].str[4:8]
+        self.df_solar = self.df_solar[["fecha","solar_power"]]
 
-        self.df_solar = self.df_solar[["time","solar_power"]]
-
-        return self.df_solar.groupby("time")["solar_power"].sum()
+        self.df_solar['solar_power'] = self.df_solar['solar_power'].apply(lambda x: x*self.num_panels)
+        
+        return self.df_solar.groupby("fecha")["fecha","solar_power"].sum().reset_index()
         

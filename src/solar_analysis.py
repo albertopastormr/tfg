@@ -30,7 +30,7 @@ def analysis_monthly():
     # Realizar calculos con el dataset de la computense
     input_sensor.extract_csv_to_dataframe()
 
-    df_sensor_month = input_sensor.group_by_months().to_frame()
+    df_sensor_month = input_sensor.group_by(group_by="month").to_frame()
     df_sensor_month.columns = ['consumo']
 
     df_sensor_month.insert(1, 'meses', range(0, 0 + len(df_sensor_month)))
@@ -71,27 +71,37 @@ def analysis_daily():
 def analysis_hourly(solar_batterie=False):
 
     config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
-    input_solar = Solar_energy(configurator=config_solar, type_data="hourly")
+    input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=2)
 
     config_sensor = Configurator(config_path = 'src/config/config.yaml', year = 2018)
     input_sensor = Input_energy(configurator=config_sensor)
 
-    df_solar = input_solar.extract_json_to_dataframe()
+    input_solar.extract_json_to_dataframe()
+    input_sensor.extract_csv_to_dataframe()
 
     # Baterias o no
     if solar_batterie:
 
         # Agrupamos por dia la energia fotovoltaica obtenida
-        df_solar_day = input_solar.group_by_hours().to_frame()
-        print(df_solar_day)
+        df_solar_day = input_solar.group_by_hours()
+        #print(df_solar_day.columns.values)
 
         # Agrupamos el consumo por dia
+        df_sensor_hours = input_sensor.group_by(group_by="day")
+        df_sensor_hours = df_sensor_hours[['fecha','consumo']]
+        #print(df_sensor_hours.columns.values)
 
-        # Calculamos el uso de bateria para cada dia y alamacenamos en un array
+        # Calculamos el uso de bateria para cada dia y almacenamos en un array
+
+        consume_ret = []
+
+        for index, row in df_sensor_hours.iterrows():
+            consume_ret.append(solar_batterie.calculate_consume_saving(consume=df_sensor_hours['consumo'].iloc[index], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
 
         # Motramos grafica con consumo inicial
+        
 
-        #return solar_batterie.calculate_consume_saving()
+        return consume_ret
     else:
         return "hola"
 
