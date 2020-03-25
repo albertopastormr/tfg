@@ -81,6 +81,7 @@ def analysis_hourly(solar_batterie=False):
 
     consume_ret = []
     extra_information = []
+    date_ret = []
 
     # Baterias o no
     if solar_batterie:
@@ -98,10 +99,6 @@ def analysis_hourly(solar_batterie=False):
 
         for index, row in df_sensor_hours.iterrows():
             consume_ret.append(solar_batterie.calculate_consume_saving(consume=row['consumo'], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
-
-        # Motramos grafica con consumo inicial
-        # TODO
-        print(consume_ret)
 
     else:
 
@@ -123,11 +120,9 @@ def analysis_hourly(solar_batterie=False):
                 acumulation_day = 0
 
         extra_information.append(acumulation_day)
+        date_ret = df_sensor_hours['fecha'].values
 
-        # Mostramos graficamente
-        
-
-    return consume_ret, extra_information
+    return consume_ret, extra_information, date_ret
 
 if __name__== "__main__":
     
@@ -136,7 +131,7 @@ if __name__== "__main__":
     """ Se puede pedir la informacion de tres formas diferentes:
             - Monthly: Te da la informacion por meses (enero, febrero...) en un solo json
             - Daily: Por mes pero cada mes en un fichero y la media que cada hora del mes.
-            - Hourly: Te da todas las horas del anioo.
+            - Hourly: Te da todas las horas del anio.
     """
 
     # 1 Numero de placas solares por mes para compensar la mayoria del gasto y cuanto tienes que pagar de electricidad
