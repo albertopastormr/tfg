@@ -3,6 +3,9 @@
 from src.solar.scraper import scraper
 from src import solar_analysis
 from src.solar.solar_batterie import Batteries
+
+import pems.solar.templates.general.generate_view as general_view
+
 import numpy as np
 
 import requests
@@ -65,28 +68,5 @@ def generate_analysis_hours():
     return divs[0]
 
 if __name__== "__main__":
-    
-    print("Start analysis...\n\r")
 
-    #generate_analysis_month()
-
-    Html_file = open("output/solar/prueba.html", "w")
-    Html_file.write("""
-            <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <link rel="stylesheet" href="">
-                </head>
-                <body>\n
-            """);
-    Html_file.write("<h2>Consumo en kwh</h2>")
-    Html_file.write(str(generate_analysis_hours()))
-
-    #generate_analysis_hours()
-
-    Html_file.write("</body>\n")
-    Html_file.write("</html>\n")
-    Html_file.close()
-    print("Generado " + "output/solar/prueba.html")
-
-    print("\n\rEnd analysis.\n\r")
+    general_view.create_inform(str(generate_analysis_hours()))
