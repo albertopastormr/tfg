@@ -69,4 +69,7 @@ def generate_analysis_hours():
 
 if __name__== "__main__":
 
+    # Generate index. Lanzar solo cuando se desplega la web
+    general_view.create_index()
+
     general_view.create_inform(str(generate_analysis_hours()))
