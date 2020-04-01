@@ -16,52 +16,20 @@ Including another URLconf
 from django.conf.urls import url
 from django.urls import include
 from django.contrib import admin
-from solar import urls as solar_url
 
 from django.template import loader
 
 from django.http import HttpResponse
 
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login as do_login
+# Aqui pones los enpoints de la app web generales. Depues llama individualmente a solar, user, ML...
 
-from django.shortcuts import render, redirect
-
-def home(request):
-    template = loader.get_template('index.html')
+def index(request):
+    template = loader.get_template('index/index.html')
     context = {}
     return HttpResponse(template.render(context, request))
-
-def login(request):
-
-    # Creamos el formulario de autenticación vacío
-    form = AuthenticationForm()
-    if request.method == "POST":
-        # Añadimos los datos recibidos al formulario
-        form = AuthenticationForm(data=request.POST)
-        # Si el formulario es válido...
-        if form.is_valid():
-            # Recuperamos las credenciales validadas
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-
-            # Verificamos las credenciales del usuario
-            user = authenticate(username=username, password=password)
-
-            # Si existe un usuario con ese nombre y contraseña
-            if user is not None:
-                # Hacemos el login manualmente
-                do_login(request, user)
-                # Y le redireccionamos a la portada
-                return redirect('/')
-
-    # Si llegamos al final renderizamos el formulario
-    return render(request, "users/login.html", {'form': form})
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^solar/', include('solar.urls')),
-    url(r'^login/', login),
-    url('', home),
+    url(r'', index),
 ]

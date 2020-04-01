@@ -3,6 +3,7 @@ from django.urls import include
 
 from . import views
 
+# URL especifico de solar para redireccionar a sus difernetes informes
 urlpatterns = [
     # ex: /solar
     path('', views.solar),

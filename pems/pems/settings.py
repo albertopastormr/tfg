@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pems.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["/home/ivanfermena/Documents/UCM/TFG/tfg/pems/solar/templates"],
+        'DIRS': ["/home/ivanfermena/Documents/UCM/TFG/tfg/pems/solar/templates", "/home/ivanfermena/Documents/UCM/TFG/tfg/pems/pems/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
