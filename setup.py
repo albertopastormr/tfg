@@ -1,10 +1,11 @@
+#!/usr/bin/python3
 # encoding: utf-8
 
 from src.solar.scraper import scraper
 from src import solar_analysis
 from src.solar.solar_batterie import Batteries
 
-import pems.solar.templates.general.generate_view as general_view
+from src.utils.generate_view import create_inform
 
 import numpy as np
 
@@ -68,8 +69,4 @@ def generate_analysis_hours():
     return divs[0]
 
 if __name__== "__main__":
-
-    # Generate index. Lanzar solo cuando se desplega la web
-    general_view.create_index()
-
-    general_view.create_inform(str(generate_analysis_hours()))
+    create_inform(str(generate_analysis_hours()))

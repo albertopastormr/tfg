@@ -36,14 +36,17 @@ class Solar_energy:
         Returns:
             Dataframe -- Suma de consumos degun la fecha en meses
         """
-        self.df_solar = self.df_solar[[self.df_solar.columns[0],"time"]]
+
+        G_columns = [col for col in self.df_solar.columns if 'G' in col]
+        self.df_solar = self.df_solar[[G_columns[0],"time"]]
+
         self.df_solar.columns = ['solar_power', 'time']
 
         self.df_solar["fecha"] = self.df_solar["time"].str[4:8] if with_batterie else self.df_solar["time"].str[4:11]
 
         self.df_solar = self.df_solar[["fecha","solar_power"]]
 
-        self.df_solar['solar_power'] = self.df_solar['solar_power'].apply(lambda x: (x*self.num_panels)/1000) if is_wattios else self.df_solar['solar_power'].apply(lambda x: x*self.num_panels)
+        self.df_solar['solar_power'] = self.df_solar['solar_power'].apply(lambda x: x*(self.num_panels/1000)) if is_wattios else self.df_solar['solar_power'].apply(lambda x: x*self.num_panels)
         
         return self.df_solar.groupby("fecha")["fecha","solar_power"].sum().reset_index()
         

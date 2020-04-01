@@ -11,6 +11,6 @@ from django.template import loader
 """
 
 def solar(request):
-    template = loader.get_template('use_case/prueba_1.html')
+    template = loader.get_template('use_case/solar.html')
     context = {}
     return HttpResponse(template.render(context, request))

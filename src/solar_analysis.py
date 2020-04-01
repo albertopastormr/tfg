@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from solar.solar_energy import Solar_energy
-from solar.input_energy import Input_energy
-from solar.solar_batterie import Batteries
-from config.configurator import Configurator
+from src.solar.solar_energy import Solar_energy
+from src.solar.input_energy import Input_energy
+from src.solar.solar_batterie import Batteries
+from src.config.configurator import Configurator
 
 import pandas as pd
 
@@ -101,7 +101,6 @@ def analysis_hourly(solar_batterie=False):
             consume_ret.append(solar_batterie.calculate_consume_saving(consume=row['consumo'], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
 
     else:
-
         # Agrupamos los dos dataframes por horas
         df_solar_day = input_solar.group_by_hours(is_wattios=True, with_batterie=False)[1:]
 
