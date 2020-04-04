@@ -16,6 +16,6 @@ def index(request):
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^solar/', include('solar.urls')),
-    url(r'', index),
+    url(r'^solar/', include('solar.urls'), name='solar'),
+    url(r'', index, name='index'),
 ]
