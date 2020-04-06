@@ -7,5 +7,6 @@ from . import views
 urlpatterns = [
     # ex: /solar
     path('', views.solar),
+    path('general_report', views.general_report),
 ]
 

@@ -7,4 +7,6 @@ def create_inform(specific_data_web):
     Html_file.write('{% endblock %}')
     Html_file.close()
 
+
+
     

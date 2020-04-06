@@ -13,20 +13,72 @@ import requests
 import pprint
 from datetime import *
 from dateutil.relativedelta import *
-import plotly.graph_objects as go
+
 import pandas as pd
 import xml.etree.ElementTree as et
-import plotly.graph_objs as go
-import plotly.express as px
-import plotly
-import plotly.io as pio
-import plotly.graph_objects as go
+
 from bs4 import BeautifulSoup
 from dateutil import parser
 import math
 from calendar import monthrange
 
 import matplotlib.pyplot as plt
+
+# Plotly plot
+import plotly.graph_objs as go
+import plotly.express as px
+import plotly
+import plotly.io as pio
+import plotly.graph_objects as go
+
+def generate_analysis_general():
+    df_solar, df_sensor = solar_analysis.analysis_general()
+
+    df_solar.iloc[:,0] = pd.to_datetime(df_solar.iloc[:,0], format="%Y%m%d:%H%M")
+    df_sensor['fecha'] = pd.to_datetime(df_sensor['fecha'], format="%Y-%m-%d %H:%M")
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df_solar.iloc[:,0], y=df_solar.iloc[:,1], name="Consume"))
+
+    fig.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                dict(count=7, label="1 week", step="day", stepmode="todate"),
+                dict(count=1, label="1 month", step="month", stepmode="backward"),
+                dict(count=3, label="3 month", step="month", stepmode="backward"),
+                dict(count=6, label="6 month", step="month", stepmode="backward"),
+                dict(step="all")
+            ])
+        )
+    )
+
+    figurahtml = (fig.to_html())
+    soup = BeautifulSoup(figurahtml)  # make soup that is parse-able by bs
+    figure_solar_year = soup.findAll('div')[0]
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df_sensor['fecha'], y=df_sensor['consumo'], name="Consume"))
+    
+    fig.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                dict(count=7, label="1 week", step="day", stepmode="todate"),
+                dict(count=1, label="1 month", step="month", stepmode="backward"),
+                dict(count=3, label="3 month", step="month", stepmode="backward"),
+                dict(count=6, label="6 month", step="month", stepmode="backward"),
+                dict(step="all")
+            ])
+        )
+    )
+
+    figurahtml = (fig.to_html())
+    soup = BeautifulSoup(figurahtml)  # make soup that is parse-able by bs
+    figure_input_year = soup.findAll('div')[0]
+
+    return "<div>" + str(figure_solar_year) + "</br>" + str(figure_input_year) + "</div>"
+    
 
 def generate_analysis_month():
     """ Analisis del numero de paneles solares que son necesarios para cubrir la demanda a nivel mensual
@@ -69,4 +121,5 @@ def generate_analysis_hours():
     return divs[0]
 
 if __name__== "__main__":
-    create_inform(str(generate_analysis_hours()))
+    #create_inform(str(generate_analysis_hours()))
+    create_inform(str(generate_analysis_general()))

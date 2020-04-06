@@ -14,3 +14,8 @@ def solar(request):
     template = loader.get_template('use_case/solar_menu.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+def general_report(request):
+    template = loader.get_template('use_case/solar.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

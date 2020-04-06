@@ -9,6 +9,19 @@ import pandas as pd
 
 import matplotlib.pyplot as plt
 
+def analysis_general():
+
+    config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
+    input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=2)
+
+    config_sensor = Configurator(config_path = 'src/config/config.yaml', year = 2018)
+    input_sensor = Input_energy(configurator=config_sensor)
+
+    input_solar.extract_json_to_dataframe()
+    input_sensor.extract_csv_to_dataframe()
+
+    return input_solar.get_data(), input_sensor.get_df_sensor()
+
 # TODO Mejorar metodo para que realice un analisis mas generico. MUY SUCIO - REFACTORIZAR
 def analysis_monthly():
 
