@@ -178,7 +178,32 @@ def generate_analysis_general():
     soup = BeautifulSoup(figurahtml)  # make soup that is parse-able by bs
     figure_input_year = soup.findAll('div')[0]
 
-    return "<div>" + title_text + "</br>" + description_text + "</br>" + str(figure_solar_year) + "</br>" + str(figure_input_year) + "</div>"
+    return  title_text + "</br>" + description_text + "</br>" + str(figure_solar_year) + str(figure_input_year)
+
+def generate_kpi_general():
+    meta_data = solar_analysis.generate_kpis()
+
+    ret_table = """
+    <style> table.steelBlueCols { margin: auto; border: 4px solid #555555;    background-color: #555555;    width: 400px;    text-align: center;    border-collapse: collapse;  }  table.steelBlueCols td, table.steelBlueCols th {    border: 1px solid #555555;    padding: 5px 10px;  }  table.steelBlueCols tbody td {    font-size: 12px;    font-weight: bold;    color: #FFFFFF;  }  table.steelBlueCols td:nth-child(even) {    background: #398AA4;  }  table.steelBlueCols thead {    background: #398AA4;    border-bottom: 10px solid #398AA4;  }  table.steelBlueCols thead th {    font-size: 15px;    font-weight: bold;    color: #FFFFFF;    text-align: left;    border-left: 2px solid #398AA4;  }  table.steelBlueCols thead th:first-child {    border-left: none;  }    table.steelBlueCols tfoot td {    font-size: 13px;  }  table.steelBlueCols tfoot .links {    text-align: right;  }  table.steelBlueCols tfoot .links a{    display: inline-block;    background: #FFFFFF;    color: #398AA4;    padding: 2px 8px;    border-radius: 5px;  }
+    </style>
+    """
+    ret_table += """
+                    <table class="steelBlueCols">
+                    <tbody>
+                """
+
+    for i in range(len(meta_data)):
+        ret_table += "<tr>"
+        for j in range(len(meta_data[i])):
+            ret_table += "<td>" + str(meta_data[i][j]) + "</td>"
+        ret_table += "</tr>"
+
+    ret_table += """
+                    </tbody>
+                    </table>
+                """
+
+    return ret_table
 
 
 def generate_analysis_month():
@@ -228,4 +253,4 @@ def generate_analysis_hours():
 
 if __name__ == "__main__":
     # create_inform(str(generate_analysis_hours()))
-    create_inform(str(generate_analysis_general()))
+    create_inform("<div>" + str(generate_analysis_general()) + str(generate_kpi_general()) + "</div>")

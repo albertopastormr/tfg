@@ -23,6 +23,10 @@ class Solar_energy:
             self.data = json.load(json_file)
             self.df_solar = pd.DataFrame(self.data["outputs"][self.type_data])
             self.data = self.df_solar
+    
+    def get_solar_meta_information(self):
+        with open(self.config.get_where(input_type = self.type_data)) as json_file:
+            return json.load(json_file)["inputs"]
 
     def get_data(self):
         return self.data

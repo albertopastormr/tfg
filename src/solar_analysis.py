@@ -22,6 +22,31 @@ def analysis_general():
 
     return input_solar.get_data(), input_sensor.get_df_sensor()
 
+def generate_kpis():
+
+    config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
+    input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=2)
+
+    meta_info = input_solar.get_solar_meta_information()
+
+    return [
+            ['latitude','longitude','elevation','radiation_db','meteo_db','slope','azimuth','optimal','technology','peak_power','system_loss'],
+            [
+                str(meta_info['location']['latitude']),
+                str(meta_info['location']['longitude']),
+                str(meta_info['location']['elevation']),
+                str(meta_info['meteo_data']['radiation_db']),
+                str(meta_info['meteo_data']['meteo_db']),
+                str(meta_info['mounting_system']['fixed']['slope']['value']),
+                str(meta_info['mounting_system']['fixed']['azimuth']['value']),
+                str(meta_info['mounting_system']['fixed']['azimuth']['optimal']),
+                str(meta_info['pv_module']['technology']),
+                str(meta_info['pv_module']['peak_power']),
+                str(meta_info['pv_module']['system_loss'])
+            ]
+        ]
+
+
 # TODO Mejorar metodo para que realice un analisis mas generico. MUY SUCIO - REFACTORIZAR
 def analysis_monthly():
 
@@ -31,7 +56,7 @@ def analysis_monthly():
     config_sensor = Configurator(config_path = 'src/config/config.yaml', year = 2018)
     input_sensor = Input_energy(configurator=config_sensor)
 
-    df_solar = input_solar.extract_json_to_dataframe()
+    df_solar = input_solar.extract_json_to_dataframe().get_data()
 
     df_solar = input_solar.extract_json_to_dataframe()[[df_solar.columns[0],"month"]]
     df_solar.columns = ['consumo', 'meses']
