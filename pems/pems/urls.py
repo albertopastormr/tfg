@@ -6,6 +6,8 @@ from django.template import loader
 
 from django.http import HttpResponse
 
+
+
 # Aqui pones los enpoints de la app web generales. Depues llama individualmente a solar, user, ML...
 
 def index(request):

@@ -6,7 +6,7 @@ from . import views
 # URL especifico de solar para redireccionar a sus difernetes informes
 urlpatterns = [
     # ex: /solar
-    path('', views.solar),
-    path('general_report', views.general_report),
+    path('', views.solar_menu),
+    path('solar_report/', views.solar_report, name="solar_report"),
 ]
 

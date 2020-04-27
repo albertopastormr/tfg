@@ -102,6 +102,14 @@
             width: calc(50% - 8px);
         }
     }
+
+    #control_specific{
+        border: grey solid 1.2px;
+        padding: 1em;
+        border-radius: 1%;
+    }
+
+
 </style>
 
 
@@ -109,6 +117,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+
+            $('#control_specific').hide();
+            $('#slope').hide();
 
             $("#select_where").change(function () {
                 var val = $(this).val();
@@ -130,11 +141,22 @@
             $("#optimize").change(function () {
                 var val = $(this).val();
                 if (val == "1") {
-                    $('#slope').show();
-                } else if (val == "2") {
                     $('#slope').hide();
-                } else{
+                } else if (val == "2") {
                     $('#slope').show();
+                } else{
+                    $('#slope').hide();
+                }
+            });
+
+            $("#select_type_report").change(function () {
+                var val = $(this).val();
+                if (val == "1") {
+                    $('#control_specific').hide();
+                } else if (val == "2") {
+                    $('#control_specific').show();
+                } else{
+                    $('#control_specific').hide();
                 }
             });
         });
@@ -142,7 +164,8 @@
 </head>
 
 <div class="testbox">
-    <form action="general_report">
+
+    <form action="{% url 'solar_report' %}" method="GET">
         <h1>Solar inform request</h1>
         <iframe id="map" width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
             src="https://www.openstreetmap.org/export/embed.html?bbox=-3.743698596954346%2C40.44394237574253%2C-3.7153744697570805%2C40.45860526744504&amp;layer=mapnik"
@@ -150,8 +173,8 @@
 
         <div class="item">
             <p>Center</p>
-            <select id="select_where">
-                <option value="1">Facultad de informatica</option>
+            <select id="select_where" name="id_center">
+                <option value="1" selected>Facultad de informatica</option>
                 <option value="2">Facultad de Medicina</option>
                 <option value="3">Facultad de Geologia</option>
                 <option value="4">Aparcamiento Arquitecto Lopez Otero</option>
@@ -159,51 +182,63 @@
             </select>
         </div>
 
-        <div class="item">
-            <p>Dates Rank</p>
-            <div class="city-item">
-                <select>
-                    <option value="0" selected="selected">Initial</option>
-                    <option value="1">2016</option>
-                    <option value="2">2017</option>
-                    <option value="3">2018</option>
-                    <option value="4">2019</option>
-                    <option value="5">2020</option>
-                </select>
-                <select>
-                    <option value="0" selected="selected">End</option>
-                    <option value="1">2016</option>
-                    <option value="2">2017</option>
-                    <option value="3">2018</option>
-                    <option value="4">2019</option>
-                    <option value="5">2020</option>
+        <div>
+            <div class="item">
+                <p>Report type</p>
+                <select id="select_type_report" name="id_type">
+                    <option value="1">General</option>
+                    <option value="2">Specific parameters</option>
                 </select>
             </div>
         </div>
 
-        <div class="item">
-            <p>Type of Analysis</p>
-            <select>
-                <option value="1">Month</option>
-                <option value="2">Hours with Batteries</option>
-                <option value="3">Hours without Batteries</option>
-            </select>
-        </div>
+        <div id="control_specific">
+            <div class="item">
+                <p>Dates Rank</p>
+                <div class="city-item">
+                    <select name="date_start">
+                        <option value="0" selected="selected">Initial</option>
+                        <option value="1">2016</option>
+                        <option value="2">2017</option>
+                        <option value="3">2018</option>
+                        <option value="4">2019</option>
+                        <option value="5">2020</option>
+                    </select>
+                    <select name="date_end">
+                        <option value="0" selected="selected">End</option>
+                        <option value="1">2016</option>
+                        <option value="2">2017</option>
+                        <option value="3">2018</option>
+                        <option value="4">2019</option>
+                        <option value="5">2020</option>
+                    </select>
+                </div>
+            </div>
 
-        <div class="item">
-            <p>Properties of solar panels</p>
-            <select id="optimize">
-                <option value="1">Select slope and azimuth</option>
-                <option value="2">Optimize slope and azimuth</option>
-            </select>
-            <div id="slope" class="city-item">
-                <input type="text" name="name" placeholder="Slope  [0,90]°" />
-                <input type="text" name="name" placeholder="Azimuth  [-180,180]°" />
+            <div class="item">
+                <p>Type of Analysis</p>
+                <select name="type_analysis">
+                    <option value="1">Month</option>
+                    <option value="2">Hours with Batteries</option>
+                    <option value="3">Hours without Batteries</option>
+                </select>
+            </div>
+
+            <div class="item">
+                <p>Properties of solar panels</p>
+                <select id="optimize" name="optimize">
+                    <option value="1">Optimize slope and azimuth</option>
+                    <option value="2">Select slope and azimuth</option>
+                </select>
+                <div id="slope" class="city-item" >
+                    <input name="text_slope" type="text" placeholder="Slope  [0,90]°" />
+                    <input name="text_azimuth" type="text" placeholder="Azimuth  [-180,180]°" />
+                </div>
             </div>
         </div>
 
         <div class="btn-block">
-            <button type="submit" href="/">SEND</button>
+            <input type="submit" value="SEND">
         </div>
     </form>
 </div>
