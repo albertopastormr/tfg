@@ -1,0 +1,22 @@
+2018:
+  - type: input
+    directory: 0
+    path: "./../data/sensor/2018_input_sensor.csv"
+    format: csv
+2016:
+  - type: hourly
+    directory: 1
+    path: "./../data/scraper/PVdata_webscraper.json"
+    format: json
+  - type: daily
+    directory: 1
+    path: "input/2016_year"
+    format: json
+  - type: monthly
+    directory: 0
+    path: "data/scraper/PVdata_webscraper.json"
+    format: json
+  - type: yearly
+    directory: 0
+    path: ""
+    format: json
