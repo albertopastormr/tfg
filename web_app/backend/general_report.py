@@ -1,4 +1,3 @@
-from backend.solar.scraper import scraper
 from backend.solar.hours_analysis import generate_hours_data as data_hours
 from backend.solar.solar_batterie import Batteries
 
@@ -25,7 +24,7 @@ import plotly.io as pio
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def generate_analysis_general():
+def generate_analysis_general(center, date):
 
     title_text = """
         <h1 style="text-align: center; margin: auto; background-color: cornflowerblue; padding: 2.5%; border:2px solid black">Analisis General Solar</h1>
@@ -41,7 +40,7 @@ def generate_analysis_general():
     </div>
     """
 
-    df_solar, df_sensor = data_hours.analysis_general()
+    df_solar, df_sensor = data_hours.analysis_general(center = center, date = date)
 
     df_solar.iloc[:, 0] = pd.to_datetime(
         df_solar.iloc[:, 0], format="%Y%m%d:%H%M")
@@ -171,8 +170,8 @@ def generate_analysis_general():
 
     return  title_text + "</br>" + description_text + "</br>" + str(figure_solar_year) + str(figure_input_year)
 
-def generate_kpi_general():
-    meta_data = data_hours.generate_kpis()
+def generate_kpi_general(center, date):
+    meta_data = data_hours.generate_kpis(center = center, date = date)
 
     ret_table = """
     <style> table.steelBlueCols { margin: auto; border: 4px solid #555555;    background-color: #555555;    width: 400px;    text-align: center;    border-collapse: collapse;  }  table.steelBlueCols td, table.steelBlueCols th {    border: 1px solid #555555;    padding: 5px 10px;  }  table.steelBlueCols tbody td {    font-size: 12px;    font-weight: bold;    color: #FFFFFF;  }  table.steelBlueCols td:nth-child(even) {    background: #398AA4;  }  table.steelBlueCols thead {    background: #398AA4;    border-bottom: 10px solid #398AA4;  }  table.steelBlueCols thead th {    font-size: 15px;    font-weight: bold;    color: #FFFFFF;    text-align: left;    border-left: 2px solid #398AA4;  }  table.steelBlueCols thead th:first-child {    border-left: none;  }    table.steelBlueCols tfoot td {    font-size: 13px;  }  table.steelBlueCols tfoot .links {    text-align: right;  }  table.steelBlueCols tfoot .links a{    display: inline-block;    background: #FFFFFF;    color: #398AA4;    padding: 2px 8px;    border-radius: 5px;  }

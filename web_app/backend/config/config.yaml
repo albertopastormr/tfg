@@ -1,22 +1,50 @@
-2018:
-  - type: input
-    directory: 0
-    path: "./../data/sensor/2018_input_sensor.csv"
+1:
+  name: Facultad de informatica
+  latitude: '40.568'
+  longitude: '-3.505'
+  2018:
+  - directory: 0
     format: csv
-2016:
-  - type: hourly
-    directory: 1
-    path: "./../data/scraper/PVdata_webscraper.json"
+    path: ./../data/sensor/2018_input_sensor.csv
+    type: input
+  2013:
+  - directory: 0
     format: json
-  - type: daily
-    directory: 1
-    path: "input/2016_year"
+    path: ./../data/general/2013/PVdata_webscraper.json
+    type: hourly
+4:
+  name: Aparcamiento Arquitecto Lopez Otero
+  latitude: '40.568'
+  longitude: '-3.505'
+  2015:
+  - directory: 0
     format: json
-  - type: monthly
-    directory: 0
-    path: "data/scraper/PVdata_webscraper.json"
+    path: ./../data/scraper/PVdata_webscraper.json
+    type: hourly
+  - directory: 1
     format: json
-  - type: yearly
-    directory: 0
-    path: ""
+    path: input/2016_year
+    type: daily
+  - directory: 0
     format: json
+    path: data/scraper/PVdata_webscraper.json
+    type: monthly
+  - directory: 0
+    format: json
+    path: ''
+    type: yearly
+  2018:
+  - directory: 0
+    format: csv
+    path: ./../data/sensor/2018_input_sensor.csv
+    type: input
+  2013:
+  - directory: 0
+    format: json
+    path: ./../data/general/2013/PVdata_webscraper.json
+    type: hourly
+  2012:
+  - directory: 0
+    format: json
+    path: ./../data/general/2012/PVdata_webscraper.json
+    type: hourly

@@ -13,12 +13,13 @@ config_path = 'backend/config/config.yaml'
 
 # ANALISYS HOURLY GENERAL
 
-def analysis_general():
+def analysis_general(center, date):
 
-    config_solar = Configurator(config_path, year = 2016)
+    config_solar = Configurator(config_path = config_path, center = center, year = date)
     input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=2)
 
-    config_sensor = Configurator(config_path, year = 2018)
+    # Ahora esta puesto 2018 para sensor ya que es la prueba de la disponemos
+    config_sensor = Configurator(config_path = config_path, center = center, year = 2018)
     input_sensor = Input_energy(configurator=config_sensor)
 
     input_solar.extract_json_to_dataframe()
@@ -27,9 +28,9 @@ def analysis_general():
     return input_solar.get_data(), input_sensor.get_df_sensor()
 
 
-def generate_kpis():
+def generate_kpis(center, date):
 
-    config_solar = Configurator(config_path, year = 2016) 
+    config_solar = Configurator(config_path = config_path, center = center, year = date) 
     input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=2)
 
     meta_info = input_solar.get_solar_meta_information()

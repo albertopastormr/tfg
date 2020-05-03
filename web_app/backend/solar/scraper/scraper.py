@@ -9,8 +9,10 @@ from selenium.webdriver.support import expected_conditions as ec
 import glob
 import os
 
+import sys
+
 import time
-from shutil import copyfile
+from shutil import move
 
 class PVGIS:
     """ API. Clase que se encarga de todo la interaccion con la web de PVGIS y scrapea para obtener los datos.
@@ -19,7 +21,7 @@ class PVGIS:
     def __init__(self):
         
         # Load drive with chrome
-        self.driver = webdriver.Chrome('src/solar/scraper/chromedriver')
+        self.driver = webdriver.Chrome(sys.path[0] + '/backend/solar/scraper/chromedriver')
 
         # Access page, accept cookies and reload page
         self.driver.get(self.url_pvg)
@@ -122,7 +124,7 @@ class PVGIS:
                 option.click()
                 break
 
-    def copy_dataset_downloads_to_project(self):
+    def copy_dataset_downloads_to_project(self, path_save):
         """Copia el ultimo archivo descargado dentro de la carpeta del proyecto
         """
         time.sleep(1)
@@ -130,7 +132,9 @@ class PVGIS:
         list_of_files = glob.glob('/home/ivanfermena/Downloads/*.json') # * means all if need specific format then *.csv
         latest_file = max(list_of_files, key=os.path.getctime)
 
-        copyfile(latest_file, "data/scraper/PVdata_webscraper.json")
+        os.mkdir(sys.path[0] + path_save[1:])
+
+        move(latest_file, sys.path[0] + path_save[1:] +"/PVdata_webscraper.json")
 
     def disconect(self):
         """Desconecta el driver del scraper. Cierra navegador.
@@ -141,7 +145,7 @@ class PVGIS:
 
 # ------------------- USE CASE ------------------
 
-def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False):
+def extract_data_monthly(path_save, latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False):
     """ Realiza el caso de uso que obtienen el numero de paneles solares necesarios para suplir el consumo
     
     Keyword Arguments:
@@ -164,11 +168,11 @@ def extract_data_monthly(latitude = "40.568", longitude = "-3.505", start_year=2
         pvgis.put_option_optimize_slope(id_angle="optrad")
 
     pvgis.download_json(id_json="monthdownloadjson")
-    pvgis.copy_dataset_downloads_to_project()
+    pvgis.copy_dataset_downloads_to_project(path_save = path_save)
 
     pvgis.disconect()
 
-def extract_data_hourly(latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False, aspect=False):
+def extract_data_hourly(path_save ,latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False, aspect=False):
 
     pvgis = PVGIS()
 
@@ -184,7 +188,7 @@ def extract_data_hourly(latitude = "40.568", longitude = "-3.505", start_year=20
         pvgis.put_option_optimize_slope(id_angle="hourlyoptimalangles")
 
     pvgis.download_json(id_json="hourlydownloadjson")
-    pvgis.copy_dataset_downloads_to_project()
+    pvgis.copy_dataset_downloads_to_project(path_save = path_save)
 
     pvgis.disconect()
 
