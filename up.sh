@@ -4,5 +4,5 @@ docker-compose up -d
 
 echo -ne """
 Done!
-Go to http://localhost:8000/
+Go to http://0.0.0.0:8000/
 """

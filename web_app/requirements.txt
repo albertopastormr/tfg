@@ -5,6 +5,9 @@ django-utils
 django
 bs4
 requests
+pyyaml
+selenium
+matplotlib
+psycopg2-binary
 # uwsgi>=2.0,<2.1 
 # dj-database-url>=0.5,<0.6
-psycopg2-binary
