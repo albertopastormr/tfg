@@ -9,4 +9,3 @@ urlpatterns = [
     path('', views.solar_menu),
     path('solar_report/', views.solar_report, name="solar_report"),
 ]
-

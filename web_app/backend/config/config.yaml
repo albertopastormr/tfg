@@ -12,6 +12,11 @@
     format: json
     path: ./../data/general/2013/PVdata_webscraper.json
     type: hourly
+  2015:
+  - directory: 0
+    format: json
+    path: ./../data/general/2015/PVdata_webscraper.json
+    type: hourly
 4:
   name: Aparcamiento Arquitecto Lopez Otero
   latitude: '40.568'
@@ -19,32 +24,10 @@
   2015:
   - directory: 0
     format: json
-    path: ./../data/scraper/PVdata_webscraper.json
+    path: ./../data/general/2015/PVdata_webscraper.json
     type: hourly
-  - directory: 1
-    format: json
-    path: input/2016_year
-    type: daily
-  - directory: 0
-    format: json
-    path: data/scraper/PVdata_webscraper.json
-    type: monthly
-  - directory: 0
-    format: json
-    path: ''
-    type: yearly
-  2018:
-  - directory: 0
-    format: csv
-    path: ./../data/sensor/2018_input_sensor.csv
-    type: input
   2013:
   - directory: 0
     format: json
     path: ./../data/general/2013/PVdata_webscraper.json
-    type: hourly
-  2012:
-  - directory: 0
-    format: json
-    path: ./../data/general/2012/PVdata_webscraper.json
     type: hourly

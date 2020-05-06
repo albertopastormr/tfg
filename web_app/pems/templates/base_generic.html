@@ -68,9 +68,9 @@
                     <a href="#0">Project</a>
 
                     <ul class="cd-side__sub-list">
-                        <li class="cd-side__sub-item"><a href="#0">About us</a></li>
+                        <li class="cd-side__sub-item"><a href="{% url 'about_us'%}">About us</a></li>
                         <li class="cd-side__sub-item"><a href="https://github.com/albertopastormr/tfg">Repository</a></li>
-                        <li class="cd-side__sub-item"><a href="#0">Contribute</a></li>
+                        <li class="cd-side__sub-item"><a href="{% url 'contribute'%}">Contribute</a></li>
                     </ul>
                 </li>
             </ul>
@@ -78,16 +78,11 @@
             <ul class="cd-side__list js-cd-side__list">
                 <li class="cd-side__label"><span>Secondary</span></li>
                 <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
-                    <a href="#0">Contact</a>
+                    <a href="{% url 'contact' %}">Contact</a>
                 </li>
 
                 <li class="cd-side__item cd-side__item--has-children cd-side__item--images js-cd-item--has-children">
-                    <a href="#0">Support</a>
-
-                    <ul class="cd-side__sub-list">
-                        <li class="cd-side__sub-item"><a href="#0">Report problem</a></li>
-                        <li class="cd-side__sub-item"><a href="#0">Ask for information</a></li>
-                    </ul>
+                    <a href="{% url 'support'%}">Support</a>
                 </li>
                 {% if user.is_staff %}
                 <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
