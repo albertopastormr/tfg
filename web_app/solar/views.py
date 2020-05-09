@@ -27,7 +27,8 @@ def solar_report(request):
 
         return render(request, "use_case/solar.html", {"center":request.GET['id_center']})
     else:
-        return HttpResponse("Request que no es general: %r" % request.GET['id_type'])
+        #return HttpResponse("Request que no es general: %r" % request.GET['id_type'])
+        return HttpResponse(status=500)
 
 
     
