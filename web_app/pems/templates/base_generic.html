@@ -53,49 +53,55 @@
     <main class="cd-main-content">
         <nav class="cd-side-nav js-cd-side-nav">
             <ul class="cd-side__list js-cd-side__list">
-                <li class="cd-side__label"><span>Main</span></li>
+                <li class="cd-side__label"><span>Dashboards</span></li>
                 <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-                    <a href="#0">Dashboards</a>
-
-                    <ul class="cd-side__sub-list">
-                        <li class="cd-side__sub-item"><a href="#0">All Categories</a></li>
-                        <li class="cd-side__sub-item"><a href="/solar/">Solar</a></li>
-                        <li class="cd-side__sub-item"><a href="#0">Predictions</a></li>
-                    </ul>
+                    <a href="/solar/">Solar</a>
                 </li>
-
-                <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
-                    <a href="#0">Project</a>
-
-                    <ul class="cd-side__sub-list">
-                        <li class="cd-side__sub-item"><a href="{% url 'about_us'%}">About us</a></li>
-                        <li class="cd-side__sub-item"><a href="https://github.com/albertopastormr/tfg">Repository</a></li>
-                        <li class="cd-side__sub-item"><a href="{% url 'contribute'%}">Contribute</a></li>
-                    </ul>
+                <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
+                    <a href="#0">Predictions</a></li>
                 </li>
             </ul>
 
             <ul class="cd-side__list js-cd-side__list">
-                <li class="cd-side__label"><span>Secondary</span></li>
-                <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
-                    <a href="{% url 'contact' %}">Contact</a>
-                </li>
-
-                <li class="cd-side__item cd-side__item--has-children cd-side__item--images js-cd-item--has-children">
+                <li class="cd-side__label"><span>Project</span></li>
+                <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
                     <a href="{% url 'support'%}">Support</a>
                 </li>
-                {% if user.is_staff %}
-                <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
-                    <a href="{% url 'admin:index' %}">Admin</a>
-
-                    <ul class="cd-side__sub-list">
-                        <li class="cd-side__sub-item"><a href="{% url 'admin:index' %}auth/user/">All Users</a></li>
-                        <li class="cd-side__sub-item"><a href="{% url 'admin:index' %}auth/group/">All Groups</a></li>
-                        <li class="cd-side__sub-item"><a href="{% url 'admin:index' %}auth/user/add/">Add User</a></li>
-                    </ul>
+                <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                    <a href="{% url 'contact' %}">Contact</a>
                 </li>
-                {% endif %} 
+                <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                    <a href="{% url 'about_us'%}">About us</a>
+                </li>
+                <li class="cd-side__item cd-side__item--has-children cd-side__item--comments js-cd-item--has-children">
+                    <a href="{% url 'contribute'%}">Contribute</a>
+                </li>
+                <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
+                    <a href="https://github.com/albertopastormr/tfg">Repository</a>
+                </li>
             </ul>
+            {% if user.is_staff %}
+                <ul class="cd-side__list js-cd-side__list"></ul>
+                    <li class="cd-side__label"><span>Admin</span></li>
+                    
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
+                        <a href="{% url 'admin:index' %}">Admin Dashboard</a>
+                    </li>
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
+                        <a href="">User</a>
+                        <ul class="cd-side__sub-list">
+                            <li class="cd-side__sub-item"><a href="{% url 'admin:index' %}auth/user/">All Users</a></li>
+                            <li class="cd-side__sub-item"><a href="{% url 'admin:index' %}auth/user/add/">Add User</a></li>
+                        </ul>
+                    </li>
+                    <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
+                        <a href="">Group</a>
+                        <ul class="cd-side__sub-list">
+                            <li class="cd-side__sub-item"><a href="{% url 'admin:index' %}auth/group/">All Groups</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
         </nav>
         {% block sidebar %}<!-- insert default navigation text for every page -->{% endblock %} 
         {% block content %}<!-- default content text (typically empty) -->{% endblock %}
