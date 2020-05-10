@@ -7,6 +7,15 @@ services:
     volumes:
       - ./web_app/:/usr/src/app/
     ports:
-      - 8000:8000
+      - "8000:8000"
     env_file:
       - ./web_app/pems/.env.dev
+    links:
+      - selenium
+  selenium:
+    image: selenium/standalone-chrome-debug:3.7.1
+    volumes:
+      - ./web_app/data/:/home/seluser/Downloads/
+    ports:
+      - 4444:4444
+      - 5900:5900

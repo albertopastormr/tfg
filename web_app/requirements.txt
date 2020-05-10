@@ -6,7 +6,7 @@ django
 bs4
 requests
 pyyaml
-selenium
+selenium==3.7.0
 matplotlib
 psycopg2-binary
 # uwsgi>=2.0,<2.1 

@@ -11,7 +11,7 @@ class Configurator:
         self.year = int(year)
         self.data = self.read_config()
         self.center = int(center)
-        self.path_data = './../data/'
+        self.path_data = './data/'
 
     def read_config(self):
         """Lee el archivo de configuracion y extrae la informacion de este

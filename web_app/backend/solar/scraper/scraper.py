@@ -6,6 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
+import subprocess
+
 import glob
 import os
 
@@ -21,7 +25,9 @@ class PVGIS:
     def __init__(self):
         
         # Load drive with chrome
-        self.driver = webdriver.Chrome(sys.path[0] + '/backend/solar/scraper/chromedriver')
+        self.driver = webdriver.Remote("http://selenium:4444/wd/hub", DesiredCapabilities.CHROME)
+
+        self.url_data_app = sys.path[0] + "/data/"
 
         # Access page, accept cookies and reload page
         self.driver.get(self.url_pvg)
@@ -127,14 +133,18 @@ class PVGIS:
     def copy_dataset_downloads_to_project(self, path_save):
         """Copia el ultimo archivo descargado dentro de la carpeta del proyecto
         """
+        time.sleep(2)
+
+        year_directory = sys.path[0] + path_save[1:]
+
+        file_list = [f for f in os.listdir(self.url_data_app) if f.endswith('.json')]
+
         time.sleep(1)
 
-        list_of_files = glob.glob('/home/ivanfermena/Downloads/*.json') # * means all if need specific format then *.csv
-        latest_file = max(list_of_files, key=os.path.getctime)
+        if not os.path.exists(year_directory):
+            os.mkdir(year_directory)
 
-        os.mkdir(sys.path[0] + path_save[1:])
-
-        move(latest_file, sys.path[0] + path_save[1:] +"/PVdata_webscraper.json")
+        move(self.url_data_app + file_list[0], year_directory +"/PVdata_webscraper.json")
 
     def disconect(self):
         """Desconecta el driver del scraper. Cierra navegador.

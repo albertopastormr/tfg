@@ -5,17 +5,17 @@
   2018:
   - directory: 0
     format: csv
-    path: ./../data/sensor/2018_input_sensor.csv
+    path: data/sensor/2018_input_sensor.csv
     type: input
   2013:
   - directory: 0
     format: json
-    path: ./../data/general/2013/PVdata_webscraper.json
+    path: data/general/2013/PVdata_webscraper.json
     type: hourly
   2015:
   - directory: 0
     format: json
-    path: ./../data/general/2015/PVdata_webscraper.json
+    path: ./data/general/2015/PVdata_webscraper.json
     type: hourly
 4:
   name: Aparcamiento Arquitecto Lopez Otero
@@ -24,10 +24,10 @@
   2015:
   - directory: 0
     format: json
-    path: ./../data/general/2015/PVdata_webscraper.json
+    path: ./data/general/2015/PVdata_webscraper.json
     type: hourly
-  2013:
+  2018:
   - directory: 0
     format: json
-    path: ./../data/general/2013/PVdata_webscraper.json
+    path: ./data/general/2018/PVdata_webscraper.json
     type: hourly
