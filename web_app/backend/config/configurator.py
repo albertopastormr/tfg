@@ -6,7 +6,7 @@ class Configurator:
     """ Clases que solo sirve para extraer la informacion del yaml y proveerla al resto de clases.
         Capa intermedia que facilita la extraccion de este fichero de configuracion
     """
-    def __init__(self, center, config_path = 'src/config/config.yaml', year = 2016):
+    def __init__(self, center, config_path = 'src/config/config_solar.yaml', year = 2015):
         self.config_path = config_path
         self.year = int(year)
         self.data = self.read_config()

@@ -1,0 +1,9 @@
+4:
+  name: Aparcamiento Arquitecto Lopez Otero
+  latitude: '40.568'
+  longitude: '-3.505'
+  2018:
+  - directory: 0
+    format: csv
+    path: data/sensor/2018_input_sensor.csv
+    type: input
