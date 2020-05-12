@@ -24,10 +24,10 @@ import plotly.io as pio
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def generate_analysis_general(center, date):
+def generate_header(center, date):
 
     title_text = """
-        <h1 style="text-align: center; margin: auto; background-color: cornflowerblue; padding: 2.5%; border:2px solid black">Analisis General Solar</h1>
+        <h1 style="text-align: center; margin: auto; background-color: rgba(140, 165, 173, 0.733); padding: 2.5%; border:2px solid black">Analisis General Solar</h1>
     """
 
     description_text = """
@@ -40,6 +40,10 @@ def generate_analysis_general(center, date):
     </div>
     """
 
+    return  title_text + "</br>" + description_text + "</br>"
+
+def generate_analysis_general(center, date):
+
     df_solar, df_sensor = data_hours.analysis_general(center = center, date = date)
 
     df_solar.iloc[:, 0] = pd.to_datetime(
@@ -48,6 +52,15 @@ def generate_analysis_general(center, date):
         df_sensor['fecha'], format="%Y-%m-%d %H:%M")
 
     # Solar general report
+
+
+
+def generate_general_solar_data(center, date):
+
+    df_solar, _ = data_hours.analysis_general(center = center, date = date)
+
+    df_solar.iloc[:, 0] = pd.to_datetime(
+        df_solar.iloc[:, 0], format="%Y%m%d:%H%M")
 
     fig = make_subplots(
         rows=2, cols=1,
@@ -106,6 +119,15 @@ def generate_analysis_general(center, date):
     figurahtml = (fig.to_html())
     soup = BeautifulSoup(figurahtml)  # make soup that is parse-able by bs
     figure_solar_year = soup.findAll('div')[0]
+
+    return str(figure_solar_year)
+
+def generate_general_sensor_data(center, date):
+
+    _, df_sensor = data_hours.analysis_general(center = center, date = date)
+
+    df_sensor['fecha'] = pd.to_datetime(
+        df_sensor['fecha'], format="%Y-%m-%d %H:%M")
 
     fig = make_subplots(
         rows=2, cols=1,
@@ -168,9 +190,34 @@ def generate_analysis_general(center, date):
     soup = BeautifulSoup(figurahtml)  # make soup that is parse-able by bs
     figure_input_year = soup.findAll('div')[0]
 
-    return  title_text + "</br>" + description_text + "</br>" + str(figure_solar_year) + str(figure_input_year)
+    return str(figure_input_year)
 
-def generate_kpi_general(center, date):
+def sensor_kpi_general(center, date):
+    meta_data = data_hours.generate_kpis(center = center, date = date)
+
+    ret_table = """
+    <style> table.steelBlueCols { margin: auto; border: 4px solid #555555;    background-color: #555555;    width: 400px;    text-align: center;    border-collapse: collapse;  }  table.steelBlueCols td, table.steelBlueCols th {    border: 1px solid #555555;    padding: 5px 10px;  }  table.steelBlueCols tbody td {    font-size: 12px;    font-weight: bold;    color: #FFFFFF;  }  table.steelBlueCols td:nth-child(even) {    background: #398AA4;  }  table.steelBlueCols thead {    background: #398AA4;    border-bottom: 10px solid #398AA4;  }  table.steelBlueCols thead th {    font-size: 15px;    font-weight: bold;    color: #FFFFFF;    text-align: left;    border-left: 2px solid #398AA4;  }  table.steelBlueCols thead th:first-child {    border-left: none;  }    table.steelBlueCols tfoot td {    font-size: 13px;  }  table.steelBlueCols tfoot .links {    text-align: right;  }  table.steelBlueCols tfoot .links a{    display: inline-block;    background: #FFFFFF;    color: #398AA4;    padding: 2px 8px;    border-radius: 5px;  }
+    </style>
+    """
+    ret_table += """
+                    <table class="steelBlueCols">
+                    <tbody>
+                """
+
+    for i in range(len(meta_data)):
+        ret_table += "<tr>"
+        for j in range(len(meta_data[i])):
+            ret_table += "<td>" + str(meta_data[i][j]) + "</td>"
+        ret_table += "</tr>"
+
+    ret_table += """
+                    </tbody>
+                    </table>
+                """
+
+    return ret_table
+
+def solar_kpi_general(center, date):
     meta_data = data_hours.generate_kpis(center = center, date = date)
 
     ret_table = """
