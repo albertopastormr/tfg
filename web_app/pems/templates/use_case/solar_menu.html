@@ -134,7 +134,7 @@
     <script>
         $(document).ready(function () {
 
-            $('#slope').hide();
+            $('#panels').hide();
 
             $("#select_where").change(function () {
                 var val = $(this).val();
@@ -153,27 +153,27 @@
                 }
             });
 
-            $("#optimize").change(function () {
+            $("#consume").change(function () {
                 var val = $(this).val();
-                if (val == "1") {
-                    $('#slope').hide();
-                } else if (val == "2") {
-                    $('#slope').show();
+                if (val != "1") {
+                    $('#panels').show();
                 } else{
-                    $('#slope').hide();
+                    $('#panels').hide();
                 }
             });
-            /*
-            $("#select_type_report").change(function () {
+
+            $('#batteries_fields').hide();
+            
+            $("#batteries_control").change(function () {
                 var val = $(this).val();
                 if (val == "1") {
-                    $('#control_specific').hide();
+                    $('#batteries_fields').hide();
                 } else if (val == "2") {
-                    $('#control_specific').show();
+                    $('#batteries_fields').show();
                 } else{
-                    $('#control_specific').hide();
+                    $('#batteries_fields').hide();
                 }
-            });*/
+            });
 
             $("#myform").on("submit", function(){
                 $("#pageloader").fadeIn();
@@ -248,63 +248,46 @@
             <div class="item">
                 <p>Consume</p>
                 <div class="city-item" >
-                    <select id="optimize" name="optimize">
+                    <select id="consume" name="consume">
                         <option value="1">None</option>
                         <option value="2">All</option>
                         <option value="3">Hourly</option>
                         <option value="4">Month</option>
                     </select>
-                    <input  id="slope" name="text_slope" type="text" placeholder="Nº Solar Panels" />
+                    <input  id="panels" name="panels" type="text" placeholder="Nº Solar Panels" />
                 </div>
-                <div class="city-item" >
-                    <select id="optimize" name="optimize">
-                        <option value="1">Optimize automatically slope and azimuth</option>
-                        <option value="2">Select manually slope and azimuth</option>
-                    </select>
-                    <div id="slope" class="city-item" >
-                        <input name="text_slope" type="text" placeholder="Slope  [0,90]°" />
-                        <input name="text_azimuth" type="text" placeholder="Azimuth  [-180,180]°" />
+            </div>
+
+            <div class="item">
+                <p>Batteries</p>
+                <select id="batteries_control" name="batteries_control">
+                    <option value="1">None</option>
+                    <option value="2">Yes</option>
+                </select>
+            </div>
+
+            <div id="batteries_fields">
+                <div class="item">
+                    <p>Batteries Fields</p>
+                </div>
+                <div id="control_specific">
+                    <div class="item">
+                        <p>Nº Serie Batteries</p>
+                        <input  id="n_serie_batteries" name="n_serie_batteries" type="text" />
+                    </div>
+        
+                    <div class="item">
+                        <p>Battery Power</p>
+                        <input  id="batteries_power" name="batteries_power" type="text" />
+                    </div>
+
+                    <div class="item">
+                        <p>Minimal Discharging Percent</p>
+                        <input  id="minimal_dicharging_percent" name="minimal_dicharging_percent" type="text" placeholder="Example 50%: 50" />
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--
-        <div>
-            <div class="item">
-                <p>Batteries</p>
-                <select id="select_type_report" name="id_type">
-                    <option value="1">None</option>
-                    <option value="2">All</option>
-                    <option value="3">Solar only</option>
-                    <option value="4">Sensor only</option>
-                </select>
-            </div>
-        </div>
-
-        <div id="control_specific">
-            <div class="item">
-                <p>Type of Analysis</p>
-                <select name="type_analysis">
-                    <option value="1">Monthly</option>
-                    <option value="2">Monthly</option>
-                    <option value="3">Hours using Batteries</option>
-                    <option value="4">Hours without using Batteries</option>
-                </select>
-            </div>
-
-            <div class="item">
-                <p>Properties of solar panels</p>
-                <select id="optimize" name="optimize">
-                    <option value="1">Optimize automatically slope and azimuth</option>
-                    <option value="2">Select manually slope and azimuth</option>
-                </select>
-                <div id="slope" class="city-item" >
-                    <input name="text_slope" type="text" placeholder="Slope  [0,90]°" />
-                    <input name="text_azimuth" type="text" placeholder="Azimuth  [-180,180]°" />
-                </div>
-            </div>
-        </div>-->
 
         <div class="btn-block">
             <input type="submit" value="SEND">

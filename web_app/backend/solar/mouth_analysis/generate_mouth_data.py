@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 config_path = 'backend/config/config.yaml'
 
 # TODO Mejorar metodo para que realice un analisis mas generico. MUY SUCIO - REFACTORIZAR
-def analysis_monthly():
+"""def analysis_monthly():
 
     config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
     input_solar = Solar_energy(configurator=config_solar, type_data="monthly")
@@ -65,4 +65,4 @@ def analysis_monthly():
         plt.text(i, array_num_panels[i], dif)
 
     plt.plot(df_result, color='yellow')
-    plt.show()
+    plt.show()"""

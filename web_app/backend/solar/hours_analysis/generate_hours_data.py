@@ -55,12 +55,13 @@ def generate_kpis(center, date):
 
 # ANALISYS HOURLY SPECIFIC
 
-def analysis_hourly(solar_batterie=False):
+def analysis_hourly(center, date, num_panels, solar_batterie=False):
 
-    config_solar = Configurator(config_path = 'src/config/config.yaml', year = 2016) 
-    input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=2)
+    config_solar = Configurator(config_path = config_path_solar, center = center, year = date)
+    input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=num_panels)
 
-    config_sensor = Configurator(config_path = 'src/config/config.yaml', year = 2018)
+    # Ahora esta puesto 2018 para sensor ya que es la prueba de la disponemos
+    config_sensor = Configurator(config_path = config_path_sensor, center = center, year = 2018)
     input_sensor = Input_energy(configurator=config_sensor)
 
     input_solar.extract_json_to_dataframe()
@@ -107,5 +108,5 @@ def analysis_hourly(solar_batterie=False):
 
         extra_information.append(acumulation_day)
         date_ret = df_sensor_hours['fecha'].values
-
+    
     return consume_ret, extra_information, date_ret
