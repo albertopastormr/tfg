@@ -163,15 +163,19 @@
             });
 
             $('#batteries_fields').hide();
+            $('#consume_batteries').hide();
             
             $("#batteries_control").change(function () {
                 var val = $(this).val();
                 if (val == "1") {
                     $('#batteries_fields').hide();
+                    $('#consume_batteries').hide();
                 } else if (val == "2") {
                     $('#batteries_fields').show();
+                    $('#consume_batteries').show();
                 } else{
                     $('#batteries_fields').hide();
+                    $('#consume_batteries').hide();
                 }
             });
 
@@ -260,10 +264,14 @@
 
             <div class="item">
                 <p>Batteries</p>
-                <select id="batteries_control" name="batteries_control">
-                    <option value="1">None</option>
-                    <option value="2">Yes</option>
-                </select>
+                <div class="city-item" >
+                    <select id="batteries_control" name="batteries_control">
+                        <option value="1">None</option>
+                        <option value="2">Yes</option>
+                    </select>
+                    <input  id="consume_batteries" name="consume_batteries" type="text" placeholder="Nº Solar Panels" />
+                </div>
+
             </div>
 
             <div id="batteries_fields">

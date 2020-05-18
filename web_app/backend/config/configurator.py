@@ -6,7 +6,7 @@ class Configurator:
     """ Clases que solo sirve para extraer la informacion del yaml y proveerla al resto de clases.
         Capa intermedia que facilita la extraccion de este fichero de configuracion
     """
-    def __init__(self, center, config_path = 'src/config/config_solar.yaml', year = 2015):
+    def __init__(self, center, config_path='src/config/config_solar.yaml', year=2015):
         self.config_path = config_path
         self.year = int(year)
         self.data = self.read_config()
@@ -38,14 +38,14 @@ class Configurator:
     def insert_year(self):
         path_save = self.path_data+"general/"+str(self.year)
 
-        self.data[self.center][self.year] = [{'type': 'hourly', 'directory': 0, 'path': path_save+"/PVdata_webscraper.json", 'format': 'json' }]
+        self.data[self.center][self.year] = [{'type': 'hourly', 'directory': 0, 'path': path_save+"/PVdata_webscraper.json", 'format': 'json'}]
 
         with open(self.config_path, 'w') as f:
             yaml.dump(self.data, f) 
 
         self.data = self.read_config()
 
-        scraper.extract_data_hourly(path_save = path_save, latitude = self.data[self.center]['latitude'], longitude = self.data[self.center]['latitude'], start_year=str(self.year), last_year=str(self.year), angle=False, aspect=False)
+        scraper.extract_data_hourly(path_save=path_save, latitude=self.data[self.center]['latitude'], longitude=self.data[self.center]['latitude'], start_year=str(self.year), last_year=str(self.year), angle=False, aspect=False)
 
         return self.data[self.center][self.year]
 

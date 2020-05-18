@@ -7,6 +7,10 @@
     format: json
     path: ./data/general/2013/PVdata_webscraper.json
     type: hourly
+  - directory: 0
+    format: json
+    path: ./data/general/2013/PVdata_monthly.json
+    type: monthly
   2012:
   - directory: 0
     format: json

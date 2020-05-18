@@ -2,12 +2,7 @@
 
 from backend.solar.solar_energy import Solar_energy
 from backend.solar.input_energy import Input_energy
-from backend.solar.solar_batterie import Batteries
 from backend.config.configurator import Configurator
-
-import pandas as pd
-
-import matplotlib.pyplot as plt
 
 config_path_sensor = 'backend/config/config_sensor.yaml'
 config_path_solar = 'backend/config/config_solar.yaml'
@@ -71,29 +66,21 @@ def analysis_hourly(center, date, num_panels, solar_batterie=False):
     extra_information = []
     date_ret = []
 
+    # Agrupamos los dos dataframes por horas
+    df_solar_day = input_solar.group_by_hours(is_wattios=True, with_batterie=False)[1:]
+
+    df_sensor_hours = input_sensor.group_by(group_by="day", date_format='%m%d:%H')
+    df_sensor_hours = df_sensor_hours[['fecha', 'consumo']]
+
     # Baterias o no
     if solar_batterie:
 
-        # Agrupamos por dia la energia fotovoltaica obtenida
-        df_solar_day = input_solar.group_by_hours(is_wattios=True, with_batterie=True)
-        #print(df_solar_day)
-
-        # Agrupamos el consumo por dia
-        df_sensor_hours = input_sensor.group_by(group_by="day")
-        df_sensor_hours = df_sensor_hours[['fecha','consumo']]
-        #print(df_sensor_hours.columns.values)
-
         # Calculamos el uso de bateria para cada dia y almacenamos en un array
-
         for index, row in df_sensor_hours.iterrows():
             consume_ret.append(solar_batterie.calculate_consume_saving(consume=row['consumo'], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
 
+        date_ret = df_sensor_hours['fecha'].values
     else:
-        # Agrupamos los dos dataframes por horas
-        df_solar_day = input_solar.group_by_hours(is_wattios=True, with_batterie=False)[1:]
-
-        df_sensor_hours = input_sensor.group_by(group_by="day",date_format='%m%d:%H')
-        df_sensor_hours = df_sensor_hours[['fecha','consumo']]
 
         # Calculo cuanta energia segun consumo por hora tenemos que comprar (array)
         # Calculamos al final del dia cuanto pagamos (array)
@@ -108,5 +95,5 @@ def analysis_hourly(center, date, num_panels, solar_batterie=False):
 
         extra_information.append(acumulation_day)
         date_ret = df_sensor_hours['fecha'].values
-    
+
     return consume_ret, extra_information, date_ret
