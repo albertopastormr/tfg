@@ -31,6 +31,8 @@ def solar_report(request):
     batteries_power = request.GET['batteries_power']
     minimal_dicharging_percent = request.GET['minimal_dicharging_percent']
 
+    active_vs_reactive = request.GET['active_reactive']
+
     # Header section
     informs_array_generate = [report_generator.generate_header(center=center, date=date)]
 
@@ -40,6 +42,7 @@ def solar_report(request):
     # TODO
     # KPI sensor
     if kpi == "3" or kpi == "2":
+        informs_array_generate.append("<h1> Kpis Sensor </h1>")
         informs_array_generate.append(str(report_generator.sensor_kpi_general(center=center, date=date)))
 
     # Table and general solar graphic
@@ -47,21 +50,29 @@ def solar_report(request):
 
     # KPI solar
     if kpi == "4" or kpi == "2":
+        informs_array_generate.append("<h1> Kpis Solar </h1>")
         informs_array_generate.append(str(report_generator.solar_kpi_general(center=center, date=date)))
+
+    # Active vs Reactive
+    if active_vs_reactive == "2":
+        informs_array_generate.append("<h1> Active vs Reactive </h1>")
+        informs_array_generate.append(str(report_generator.sensor_active_vs_reactive(center=center, date=date)))
 
     # Consume Hourly
     if consume == "3" or consume == "2":
+        informs_array_generate.append("<h1> Consume Hourly </h1>")
         informs_array_generate.append(
             str(specific_generator.consume_hourly_generic(center=center, date=date, num_panels=int(panels))))
 
-    # Consume Hourly
+    # Consume Monthly
     if consume == "4" or consume == "2":
-        informs_array_generate.append("<h1> MONTH </h1>")
+        informs_array_generate.append("<h1> Consume Month </h1>")
         informs_array_generate.append(
             str(specific_generator.generate_analysis_month(center=center, date=date, num_panels=int(panels))))
 
     # Consume with Batteries
     if control_batteries == "2":
+        informs_array_generate.append("<h1> Batteries </h1>")
         informs_array_generate.append(
             str(specific_generator.consume_hourly_with_batteries(center=center, date=date,
                                                                  num_panels=int(consume_batteries),

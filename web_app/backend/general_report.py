@@ -1,28 +1,14 @@
 from backend.solar.hours_analysis import generate_hours_data as data_hours
-from backend.solar.solar_batterie import Batteries
-
-import numpy as np
-
-import requests
-import pprint
 
 import pandas as pd
-import xml.etree.ElementTree as et
 
 from bs4 import BeautifulSoup
-from dateutil import parser
-import math
-from calendar import monthrange
-
-import matplotlib.pyplot as plt
 
 # Plotly plot
 import plotly.graph_objs as go
-import plotly.express as px
-import plotly
-import plotly.io as pio
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import plotly.figure_factory as ff
 
 def generate_header(center, date):
 
@@ -241,3 +227,30 @@ def solar_kpi_general(center, date):
                 """
 
     return ret_table
+
+
+def sensor_active_vs_reactive(center, date):
+    _, df_sensor = data_hours.analysis_general(center=center, date=date)
+
+    df_sensor['fecha'] = pd.to_datetime(
+        df_sensor['fecha'], format="%Y-%m-%d %H:%M")
+
+    # Create distplot with curve_type set to 'normal'
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(x= df_sensor['fecha'], y=df_sensor['reactiva'],
+                             mode='lines+markers',
+                             name='Reactive'))
+
+    fig.add_trace(go.Scatter(x= df_sensor['fecha'], y=df_sensor['potenciamax'] + 10,
+                             mode='lines+markers',
+                             name='Max'))
+
+    fig.add_trace(go.Scatter(x= df_sensor['fecha'], y=df_sensor['potenciaact'] - 15,
+                             mode='lines+markers', name='Active'))
+
+    figure_html = (fig.to_html())
+    soup = BeautifulSoup(figure_html)  # make soup that is parse-able by bs
+    figure_input_year = soup.findAll('div')[0]
+
+    return figure_input_year

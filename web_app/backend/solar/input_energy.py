@@ -38,4 +38,11 @@ class Input_energy:
         else:
             self.df_sensor['fecha'] = pd.to_datetime(self.df_sensor['fecha']).dt.strftime(date_format)
 
-        return self.df_sensor.groupby("fecha")["consumo"].sum().reset_index()
+        consume_kw = self.df_sensor.groupby("fecha")["consumo"].sum().reset_index()
+        consume_cost = self.df_sensor.groupby("fecha")["coste"].mean().reset_index()
+
+        consume_kw['coste'] = consume_cost['coste']
+        consume_kw['coste_kw'] = consume_cost['coste'] / consume_kw['consumo']
+
+        # Retornamos el coste en kw y el euros
+        return consume_kw

@@ -4,10 +4,30 @@ from backend.solar.solar_batterie import Batteries
 from bs4 import BeautifulSoup
 import plotly.graph_objs as go
 
-
 def generate_analysis_month(center, date, num_panels):
-    return data_month.analysis_monthly(center=center, date=date, num_panels=num_panels)
+    consume_ret_actual, consume_ret, consume_cost_ret_actual, consume_cost, months = data_month.analysis_monthly(center=center, date=date, num_panels=num_panels)
 
+    fig_consume = go.Figure(data=[
+        go.Bar(name='Total consume kw/h', x=months, y=consume_ret_actual, marker_color='#21CBFF'),
+        go.Bar(name='Total consume with solar energy(€)', x=months, y=consume_ret, marker_color='#2C53FF')
+    ])
+    # Change the bar mode
+    fig_consume.update_layout(barmode='group')
+
+    soup = BeautifulSoup(fig_consume.to_html())
+    consume_bar = soup.findAll('div')
+
+    fig_cost = go.Figure(data=[
+        go.Bar(name='Total consume kw/h', x=months, y=consume_cost_ret_actual, marker_color='#FFB718'),
+        go.Bar(name='Total cost (€)', x=months, y=consume_cost, marker_color='#FF1842')
+    ])
+    # Change the bar mode
+    fig_cost.update_layout(barmode='group')
+
+    soup_cost = BeautifulSoup(fig_cost.to_html())
+    cost_bar = soup_cost.findAll('div')
+
+    return consume_bar[0], cost_bar[0]
 
 def generate_hourly_graphics(consume_ret, dates, extra_information=None):
     date_day = []
@@ -39,8 +59,8 @@ def generate_hourly_graphics(consume_ret, dates, extra_information=None):
 
 
 def consume_hourly_generic(center, date, num_panels):
-    consume_ret, extra_information, dates = data_hours.analysis_hourly(center = center, date = date, num_panels=num_panels, solar_batterie=False)
-    return generate_hourly_graphics(consume_ret = consume_ret, extra_information = extra_information, dates = dates)
+    consume_ret, extra_information, dates = data_hours.analysis_hourly(center=center, date=date, num_panels=num_panels, solar_batterie=False)
+    return generate_hourly_graphics(consume_ret=consume_ret, extra_information=extra_information, dates=dates)
 
 
 def consume_hourly_with_batteries(center, date, num_panels, number_serie_batteries, power_battery, min_discharging_percent):

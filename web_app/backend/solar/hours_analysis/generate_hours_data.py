@@ -23,7 +23,6 @@ def analysis_general(center, date):
 
     return input_solar.get_data(), input_sensor.get_df_sensor()
 
-
 def generate_kpis(center, date):
 
     config_solar = Configurator(config_path = config_path_solar, center = center, year = date) 
@@ -86,7 +85,7 @@ def analysis_hourly(center, date, num_panels, solar_batterie=False):
         # Calculamos al final del dia cuanto pagamos (array)
         acumulation_day = 0
         for index, row in df_sensor_hours.iterrows():
-            consume = row['consumo'] - df_solar_day['solar_power'].iloc[index]
+            consume = row['consumo'] - (df_solar_day['solar_power'].iloc[index] * num_panels)
             consume_ret.append(consume)
             acumulation_day = acumulation_day + consume
             if (index % 24) == 1:
