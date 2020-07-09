@@ -47,8 +47,8 @@ def generate_kpis(center, date):
             ]
         ]
 
-# ANALISYS HOURLY SPECIFIC
 
+# ANALISYS HOURLY SPECIFIC
 def analysis_hourly(center, date, num_panels, solar_batterie=False):
 
     config_solar = Configurator(config_path = config_path_solar, center = center, year = date)

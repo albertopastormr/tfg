@@ -3,6 +3,8 @@ from backend.solar.month_analysis import generate_month_data as data_month
 from backend.solar.solar_batterie import Batteries
 from bs4 import BeautifulSoup
 import plotly.graph_objs as go
+import datetime
+
 
 def generate_analysis_month(center, date, num_panels):
     consume_ret_actual, consume_ret, consume_cost_ret_actual, consume_cost, months = data_month.analysis_monthly(center=center, date=date, num_panels=num_panels)
@@ -12,7 +14,7 @@ def generate_analysis_month(center, date, num_panels):
         go.Bar(name='Total consume with solar energy(€)', x=months, y=consume_ret, marker_color='#2C53FF')
     ])
     # Change the bar mode
-    fig_consume.update_layout(barmode='group')
+    fig_consume.update_layout(title_text='Consumo mensual con placas solares.', barmode='group')
 
     soup = BeautifulSoup(fig_consume.to_html())
     consume_bar = soup.findAll('div')
@@ -22,34 +24,52 @@ def generate_analysis_month(center, date, num_panels):
         go.Bar(name='Total cost (€)', x=months, y=consume_cost, marker_color='#FF1842')
     ])
     # Change the bar mode
-    fig_cost.update_layout(barmode='group')
+    fig_cost.update_layout(title_text='Consumo mensual sin placa solar.', barmode='group')
 
     soup_cost = BeautifulSoup(fig_cost.to_html())
     cost_bar = soup_cost.findAll('div')
 
     return consume_bar[0], cost_bar[0]
 
+
 def generate_hourly_graphics(consume_ret, dates, extra_information=None):
     date_day = []
+
     for hour in dates:
         if hour[5:8] == "00":
             date_day.append('{}:00'.format(hour[0:4]))
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=dates, y=consume_ret, name="Consume"))
+    fig.add_trace(go.Scatter(x=date_day, y=consume_ret, name="Consume", line=dict(color="#A500E4")))
 
-    fig.update_layout(title_text='Time Series with Rangeslider',
-                      xaxis_rangeslider_visible=True, xaxis_title="Hours", yaxis_title="Consume (Kw/h)")
+    fig.update_layout(
+            title_text='Consumo de centro con placas solares en kw/h',
+            xaxis_rangeslider_visible=True,
+            xaxis_title="Hours",
+            yaxis_title="Consume (Kw/h)",
+            xaxis=dict(
+                linewidth=2,
+                rangeslider=dict(),
+            ),
+    )
 
     soup = BeautifulSoup(fig.to_html())
     divs = soup.findAll('div')
 
     if extra_information is not None:
         fig_rest = go.Figure()
-        fig_rest.add_trace(go.Scatter(x=date_day, y=extra_information, name="Cost"))
+        fig_rest.add_trace(go.Scatter(x=date_day, y=extra_information, name="Cost", line=dict(color="#A500E4")))
 
-        fig_rest.update_layout(title_text='Time Series with Rangeslider',
-                          xaxis_rangeslider_visible=True, xaxis_title="Hours", yaxis_title="Consume (Kw/h)")
+        fig_rest.update_layout(
+            title_text='Consumo de centro con placas solares en Euros',
+            xaxis_rangeslider_visible=True,
+            xaxis_title="Hours",
+            yaxis_title="Consume (€)",
+            xaxis=dict(
+                linewidth=2,
+                rangeslider=dict(),
+            ),
+        )
 
         soup = BeautifulSoup(fig_rest.to_html())
         divs_cost = soup.findAll('div')
