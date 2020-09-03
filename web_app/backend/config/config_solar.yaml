@@ -26,3 +26,8 @@
     format: json
     path: ./data/general/2014/PVdata_webscraper.json
     type: hourly
+  2015:
+  - directory: 0
+    format: json
+    path: ./data/general/2015/PVdata_webscraper.json
+    type: hourly

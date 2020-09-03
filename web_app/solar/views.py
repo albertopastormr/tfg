@@ -125,5 +125,5 @@ def solar_report(request):
 
     informs_array_generate.append("</br></br>")
 
-    create_inform_general(informs_array=informs_array_generate)
+    create_inform_general(informs_array=informs_array_generate, url="pems/templates/use_case/solar.html")
     return render(request, "use_case/solar.html", {})

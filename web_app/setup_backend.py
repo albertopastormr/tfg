@@ -1,8 +1,9 @@
 from backend.utils.generate_view import create_inform
 
-def create_inform_general(informs_array):
+
+def create_inform_general(informs_array, url):
     return create_inform(
-                        path="pems/templates/use_case/solar.html", 
+                        path=url,
                         specific_data_web = 
                             "<div>" +
                                 " ".join(informs_array) +
