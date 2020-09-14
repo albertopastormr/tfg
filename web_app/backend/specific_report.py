@@ -10,8 +10,8 @@ def generate_analysis_month(center, date, num_panels):
     consume_ret_actual, consume_ret, consume_cost_ret_actual, consume_cost, months = data_month.analysis_monthly(center=center, date=date, num_panels=num_panels)
 
     fig_consume = go.Figure(data=[
-        go.Bar(name='Total consume kw/h', x=months, y=consume_ret_actual, marker_color='#21CBFF'),
-        go.Bar(name='Total consume with solar energy(€)', x=months, y=consume_ret, marker_color='#2C53FF')
+        go.Bar(name='Total consume (kw/h)', x=months, y=consume_ret_actual, marker_color='#21CBFF'),
+        go.Bar(name='Total consume with solar energy (kw/h)', x=months, y=consume_ret, marker_color='#2C53FF')
     ])
     # Change the bar mode
     fig_consume.update_layout(title_text='Consumo mensual con placas solares.', barmode='group')
@@ -20,8 +20,8 @@ def generate_analysis_month(center, date, num_panels):
     consume_bar = soup.findAll('div')
 
     fig_cost = go.Figure(data=[
-        go.Bar(name='Total consume kw/h', x=months, y=consume_cost_ret_actual, marker_color='#FFB718'),
-        go.Bar(name='Total cost (€)', x=months, y=consume_cost, marker_color='#FF1842')
+        go.Bar(name='Total cost (€)', x=months, y=consume_cost_ret_actual, marker_color='#FFB718'),
+        go.Bar(name='Total cost with solar energy (€)', x=months, y=consume_cost, marker_color='#FF1842')
     ])
     # Change the bar mode
     fig_cost.update_layout(title_text='Consumo mensual sin placa solar.', barmode='group')

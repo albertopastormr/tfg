@@ -6,6 +6,7 @@ import json
     Datos extraidos de la web de la eu
 """
 
+
 class Solar_energy:
     def __init__(self, configurator, type_data, num_panels=1):
         self.config = configurator

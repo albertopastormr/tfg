@@ -1,6 +1,3 @@
-import pandas as pd
-import json
-
 class Batteries:
     def __init__(self, number_serie=0, power=100, min_discharging_percent=50):
         """[summary]
@@ -13,9 +10,17 @@ class Batteries:
         self.number_serie = number_serie
         self.power = power
         self.min_discharging_percent = min_discharging_percent
+        self.energy_save = 0
+        # Maxima energia almacenaje en baterias
+        self.power_max_saving = (self.number_serie * self.power)
+        #self.power_min_saving = self.power_max_saving * (float(100 - self.min_discharging_percent) / 100)
+        self.power_min_saving = self.power_max_saving * (self.min_discharging_percent / 100)
+
+    def available_save_energy(self):
+        return 0 if self.power_min_saving >= self.energy_save else self.energy_save - self.power_min_saving
 
     def calculate_consume_saving(self, consume, power_solar_saving):
-        """ Calcula el consumo que es necesario con la configuracion d ebateria y lo que tiene almacenada
+        """ Calcula el consumo que es necesario con la configuracion de bateria y lo que tiene almacenada
         
         Arguments:
             consume {[type]} -- [description]
@@ -24,16 +29,23 @@ class Batteries:
             [type] -- [description]
         """
 
-        power_max_saving = (self.number_serie * self.power)
+        if consume > power_solar_saving:
+            energy_relative = consume - power_solar_saving
+            if energy_relative <= self.available_save_energy():
+                self.energy_save = self.energy_save - energy_relative
+                return 0
+            else:
+                self.energy_save = self.energy_save - self.available_save_energy()
+                return energy_relative - self.available_save_energy()
+        else:
+            energy_surplus = power_solar_saving - consume
+            self.energy_save = self.power_max_saving \
+                if energy_surplus + self.energy_save >= self.power_max_saving \
+                else energy_surplus + self.energy_save
 
-        power_max_saving = power_max_saving if (power_max_saving <= power_solar_saving) else power_solar_saving
+            return 0
 
-        real_power = power_max_saving * (float(100 - self.min_discharging_percent)/100)
 
-        return 0 if real_power >= consume else consume - real_power 
-
-if __name__== "__main__":
-
+if __name__ == "__main__":
     bt = Batteries(number_serie=2, power=80, min_discharging_percent=50)
-
     print(bt.calculate_consume_saving(consume=200, power_solar_saving=200))

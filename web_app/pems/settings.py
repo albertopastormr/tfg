@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'solar.templatetags.custom_tags',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]

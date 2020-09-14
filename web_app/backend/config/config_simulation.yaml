@@ -1,0 +1,10 @@
+1:
+  name: Facultad de informatica
+  latitude: '40.568'
+  longitude: '-3.505'
+  path: data/real_time.csv
+4:
+  name: Aparcamiento Arquitecto Lopez Otero
+  latitude: '40.4536'
+  longitude: '-3.7316'
+  path: data/real_time.csv

@@ -71,6 +71,9 @@ class Configurator:
 
         return self.build_dict(self.get_data_year(), key="type").get(input_type)["path"]
 
+    def get_where_without_type(self):
+        return self.data[self.center]["path"]
+
     def build_dict(self, seq, key):
         """ Genera un diccionario a partir de una secuencia y una clave
         hourly

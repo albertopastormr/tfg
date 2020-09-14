@@ -6,8 +6,8 @@
   /* Three columns side by side */
 .column {
   float: left;
-  width: 33.3%;
-  margin-bottom: 16px;
+  width: 30%;
+  margin: 1.1%;
   padding: 0 8px;
 }
 
@@ -22,6 +22,20 @@
 /* Add some shadows to create a card effect */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card img{
+    padding: 1.5em;
+    display:block;
+    margin:auto;
+    border: solid 3px #1c1c21;
+    border-radius: 2%;
+    width: 75%;
+}
+
+.card p, h2{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Some left and right padding inside the container */
@@ -40,21 +54,6 @@
   color: grey;
 }
 
-.button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-}
-
-.button:hover {
-  background-color: #555;
-}
 </style>
 
 </nav>
@@ -62,43 +61,42 @@
 <div class="row">
   <div class="column">
     <div class="card">
-      <img src="{% static 'img/logo-ucm.png' %}" alt="Jane" style="width:100%">
+      <img src="{% static 'img/jorge.jpg' %}" alt="Jorge">
       <div class="container">
-        <h2>Mi padre</h2>
-        <p class="title">CEO &amp; Founder</p>
-        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-        <p>example@example.com</p>
-        <p><button class="button">Contact</button></p>
+        <h2>Jorge J. Gómez Sanz</h2>
+        <p class="title">Director del proyecto</p>
+        <p>Vicerrector de Tecnología y Sostenibilidad - Universidad Complutense de Madrid</p>
+          <p><strong>Correo:</strong> jjgomez@ucm.es</p>
+        <p><strong>Linkedin:</strong> https://www.linkedin.com/in/jorgegomezsanz/</p>
       </div>
     </div>
   </div>
 
   <div class="column">
-    <div class="card">
-      <img src="img2.jpg" alt="Mike" style="width:100%">
+     <div class="card">
+      <img src="{% static 'img/ivan.jpg' %}" alt="Ivan" style="width: 78.5%">
       <div class="container">
-        <h2>Mi madre</h2>
-        <p class="title">Art Director</p>
-        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-        <p>example@example.com</p>
-        <p><button class="button">Contact</button></p>
+        <h2>Iván Fernández Mena</h2>
+        <p class="title">Desarrolador del proyecto</p>
+        <p>Estudiante de Ingenieria del Software - Universidad Complutense de Madrid</p>
+        <p><strong>Correo:</strong> ivafer05@ucm.es</p>
+        <p><strong>Linkedin:</strong> https://www.linkedin.com/in/ivanfermena/</p>
       </div>
     </div>
   </div>
 
   <div class="column">
-    <div class="card">
-      <img src="img3.jpg" alt="John" style="width:100%">
+     <div class="card">
+      <img src="{% static 'img/alberto.jpg' %}" alt="Ivan" style="width: 84%">
       <div class="container">
-        <h2>La fusion de mi padre y mi madre= yo</h2>
-        <p class="title">Designer</p>
-        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-        <p>example@example.com</p>
-        <p><button class="button">Contact</button></p>
+        <h2>Alberto Pastor Moreno</h2>
+        <p class="title">Desarrolador del proyecto</p>
+        <p>Estudiante de Ingenieria del Software - Universidad Complutense de Madrid</p>
+        <p><strong>Correo:</strong> albpas01@ucm.es</p>
+        <p><strong>Linkedin:</strong> https://www.linkedin.com/in/albertopastormr/</p>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 

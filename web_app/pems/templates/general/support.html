@@ -1,4 +1,111 @@
 {% extends "base_generic.html" %}
+{% load static %}
 {% block content %}
-  </nav>Index page info. Eyy support</div>
+
+<style>
+.landing-section {
+	padding-top: 8rem;
+	padding-bottom: 2.125rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+	text-align: center;
+}
+
+.landing-section img{
+    display:block;
+    margin:auto;
+}
+
+.landing-section ul {
+    list-style-type: circle;
+    margin-left: 2rem;
+    margin-bottom: 3rem;
+}
+
+.text_landing{
+    margin-top: 3rem;
+    text-align: left;
+}
+
+.text_landing img {
+    margin: auto;
+}
+.brand {
+  margin: 0;
+  color: #2a1b53;
+}
+</style>
+
+</nav>
+  <section class="landing-section landing-main">
+    <div class="landing-section-content">
+      <h1 class="brand">Preguntas típicas de la plataforma</h1>
+      <p class="landing-main-text">
+          <div class="text_landing">
+            En esta sección se resolveran la preguntas mas comunes que surgen al entrar en esta plataforma, esperamos que
+            su duda se encuentre entre estas y sea resuelta. En caso contrario dispone del botón en la parte superior
+            derecha con la plalabra <a href="/help/"> "Help" </a> que muestra una breve guia de uso y si no, dispone del formulario
+            de contacto en la seccion de <a href="/contact/"> "Contact" </a>.
+
+            <br><br>
+
+            El boton de ayuda es como el siguiente:
+
+            <img src="{% static 'img/help.png' %}" alt="boton help">
+
+            <br><br>
+
+            <h4 class="brand">Preguntas:</h4>
+
+            <ul>
+                <li>a
+                    <strong>Conocer el comportamiento del consumo energético:</strong> Los datos de los que disponen los responsables de
+                    las instalaciones necesitan de un tratamiento que, si fuera manual, tomaría demasiado tiempo y costes.
+                    Por ello, realizar pre-procesamiento de estos datos en crudo y mostrarlos en gráficas ricas agregando
+                    datos de forma automática, le aporta mucho valor a un EMS. De esta forma, se consigue conocer el
+                    comportamiento del consumo. Además, los cruces de información de consumo de instalaciones con una
+                    instalación hipotética de energías limpias, en particular de energía fotovoltaica, sería inviable
+                    si no fuera realizado con un sistema como el que planteamos. Por esto, este proyecto ofrece, además,
+                    el poder indagar en el impacto que supondría el uso de esta fuente de energía verde en el consumo de
+                    una instalación. <br>
+
+                    El apoyo de la energía fotovoltaica impacta directamente en la reducción de costes,
+                    convirtiendo a un centro en más autónomo. Además, su consumo será más responsable con el medio ambiente.
+                    Es por esto por lo que la visualización de datos temporales agregados incluyendo la energía
+                    fotovoltaica tiene un gran peso en nuestra plataforma.
+                </li>
+                <br>
+                <li>
+                    <strong>Calcular configuraciones óptimas de instalaciones fotovoltaicas</strong>: La reducción de
+                    costes asociados al consumo no se puede realizar de forma trivial y directa; los obstáculos que
+                    encontramos a la hora de diseñar la configuración energética de una instalación requieren la
+                    optimización simultánea de más de un objetivo. En el proyecto se tienen en cuenta factores
+                    como la reducción al máximo del consumo de electricidad de la red con un coste de inversión mínimo
+                    y el uso de la mejor configuración posible de energía solar. De esta forma, incluimos energía solar
+                    siempre y cuando reduzca los costes, considerando factores como la vida media de las baterías, el
+                    mantenimiento de éstas o el coste de instalación. Introducir varias métricas diferentes puede
+                    generar conflictos entre objetivos, que harán que la mejora de uno de ellos dé lugar a un
+                    empeoramiento de algún otro. Por eso, en el proyecto un objetivo importante es el uso de
+                    técnicas de optimización multiobjetivo que hagan llegar a una situación de compromiso en
+                    la que todos los objetivos sean satisfechos en un grado aceptable, dando lugar a conocimiento
+                    útil en la toma de decisiones presupuestarias.
+                </li>
+                <br>
+                <li>
+                    <strong>Monitorizar el consumo en tiempo real</strong>: Utilizando un sistema de avisos, es relevante
+                    analizar si el consumo en cada momento supera al consumo esperado. Si fuera así, sería posible conocer
+                    en tiempo real si la configuración de una instalación ha alterado el consumo negativamente. Dado que
+                    el consumo está asociado al uso de las instalaciones por parte de los usuarios, es relevante conocer
+                    la ocupación del centro. Así, el sistema puede estipular con más precisión qué es considerado como
+                    normales. Además, también permite realizar estudios de tendencias con datos del consumo asociado a
+                    la ocupación de un edificio en tiempo real según se obtengan de origen.
+                </li>
+            </ul>
+
+        </div>
+      </p>
+    </div>
+  </section>
+</div>
+
 {% endblock %}

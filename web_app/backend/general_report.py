@@ -309,16 +309,23 @@ def sensor_active_vs_reactive(center, date):
     # Create distplot with curve_type set to 'normal'
     fig = go.Figure()
 
-    fig.add_trace(go.Scatter(x= df_sensor['fecha'], y=df_sensor['reactiva'],
-                             mode='lines+markers',
-                             name='Reactive'))
+    fig.add_trace(
+        go.Scatter(
+            x=df_sensor['fecha'],
+            y=df_sensor['reactiva'],
+            mode='lines+markers',
+            name='Reactive'
+        )
+    )
 
-    fig.add_trace(go.Scatter(x= df_sensor['fecha'], y=df_sensor['potenciamax'] + 10,
-                             mode='lines+markers',
-                             name='Max'))
-
-    fig.add_trace(go.Scatter(x= df_sensor['fecha'], y=df_sensor['potenciaact'] - 15,
-                             mode='lines+markers', name='Active'))
+    fig.add_trace(
+        go.Scatter(
+            x=df_sensor['fecha'],
+            y=df_sensor['consumo'],
+            mode='lines+markers',
+            name='Active'
+        )
+    )
 
     fig.update_layout(
         height=750,

@@ -53,11 +53,11 @@ def generate_kpis(center, date):
 # ANALISYS HOURLY SPECIFIC
 def analysis_hourly(center, date, num_panels, solar_batterie=False):
 
-    config_solar = Configurator(config_path = config_path_solar, center = center, year = date)
+    config_solar = Configurator(config_path=config_path_solar, center=center, year=date)
     input_solar = Solar_energy(configurator=config_solar, type_data="hourly", num_panels=num_panels)
 
     # Ahora esta puesto 2018 para sensor ya que es la prueba de la disponemos
-    config_sensor = Configurator(config_path = config_path_sensor, center = center, year = 2018)
+    config_sensor = Configurator(config_path=config_path_sensor, center = center, year = 2018)
     input_sensor = Input_energy(configurator=config_sensor)
 
     input_solar.extract_json_to_dataframe()
@@ -78,7 +78,7 @@ def analysis_hourly(center, date, num_panels, solar_batterie=False):
 
         # Calculamos el uso de bateria para cada dia y almacenamos en un array
         for index, row in df_sensor_hours.iterrows():
-            consume_ret.append(solar_batterie.calculate_consume_saving(consume=row['consumo'], power_solar_saving=df_solar_day['solar_power'].iloc[index]))
+            consume_ret.append(solar_batterie.calculate_consume_saving(consume=row['consumo'], power_solar_saving=df_solar_day['solar_power'].iloc[index]*num_panels))
 
         date_ret = df_sensor_hours['fecha'].values
     else:
@@ -88,7 +88,7 @@ def analysis_hourly(center, date, num_panels, solar_batterie=False):
         acumulation_day = 0
         for index, row in df_sensor_hours.iterrows():
             consume = row['consumo'] - (df_solar_day['solar_power'].iloc[index] * num_panels)
-            consume_ret.append(consume)
+            consume_ret.append(consume) if consume > 0 else consume_ret.append(0)
             acumulation_day = acumulation_day + consume
             if (index % 24) == 1:
                 extra_information.append(acumulation_day)

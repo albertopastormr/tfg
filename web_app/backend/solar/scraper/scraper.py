@@ -1,22 +1,11 @@
 from selenium import webdriver
-import pandas as pd
-
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-import subprocess
-
-import glob
 import os
-
 import sys
-
 import time
 from shutil import move
+
 
 class PVGIS:
     """ API. Clase que se encarga de todo la interaccion con la web de PVGIS y scrapea para obtener los datos.
@@ -27,7 +16,7 @@ class PVGIS:
         # Load drive with chrome
         self.driver = webdriver.Remote("http://selenium:4444/wd/hub", DesiredCapabilities.CHROME)
 
-        self.url_data_app = sys.path[0] + "/data/"
+        self.url_data_app = '/usr/src/app/data/'
 
         # Access page, accept cookies and reload page
         self.driver.get(self.url_pvg)
@@ -133,18 +122,23 @@ class PVGIS:
     def copy_dataset_downloads_to_project(self, path_save):
         """Copia el ultimo archivo descargado dentro de la carpeta del proyecto
         """
-        time.sleep(2)
-
-        year_directory = sys.path[0] + path_save[1:]
-
-        file_list = [f for f in os.listdir(self.url_data_app) if f.endswith('.json')]
-
-        time.sleep(1)
+        year_directory = '/usr/src/app' + path_save[1:]
 
         if not os.path.exists(year_directory):
             os.mkdir(year_directory)
 
-        move(self.url_data_app + file_list[0], year_directory +"/PVdata_webscraper.json")
+        file_list = [f for f in os.listdir(self.url_data_app) if f.endswith('.json')]
+
+        file_copy_in_not_dir = True
+
+        while file_copy_in_not_dir:
+            if len(file_list) > 0:
+                move('/usr/src/app/data/' + file_list[0], year_directory + '/PVdata_webscraper.json')
+                file_copy_in_not_dir = False
+            else:
+                file_list = [f for f in os.listdir(self.url_data_app) if f.endswith('.json')]
+                time.sleep(2)
+
 
     def disconect(self):
         """Desconecta el driver del scraper. Cierra navegador.
@@ -181,6 +175,7 @@ def extract_data_monthly(path_save, latitude = "40.568", longitude = "-3.505", s
     pvgis.copy_dataset_downloads_to_project(path_save = path_save)
 
     pvgis.disconect()
+
 
 def extract_data_hourly(path_save ,latitude = "40.568", longitude = "-3.505", start_year=2016, last_year=2016, angle=False, aspect=False):
 
