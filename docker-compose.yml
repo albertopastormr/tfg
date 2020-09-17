@@ -23,7 +23,7 @@ services:
   # SPARK
   master:
     image: gettyimages/spark
-    command: bin/spark-class org.apache.spark.deploy.master.Master -h master
+    command: bash -c "(bin/spark-class org.apache.spark.deploy.master.Master -h master &) && (/usr/src/spark/control_spark.sh localhost 1234)"
     hostname: master
     environment:
       MASTER: spark://master:7077
@@ -54,8 +54,8 @@ services:
     hostname: worker-1
     environment:
       SPARK_CONF_DIR: /conf
-      SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_CORES: 4
+      SPARK_WORKER_MEMORY: 3g
       SPARK_WORKER_PORT: 8881
       SPARK_WORKER_WEBUI_PORT: 8081
       SPARK_PUBLIC_DNS: localhost
@@ -78,8 +78,8 @@ services:
     hostname: worker-2
     environment:
       SPARK_CONF_DIR: /conf
-      SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_CORES: 4
+      SPARK_WORKER_MEMORY: 3g
       SPARK_WORKER_PORT: 8881
       SPARK_WORKER_WEBUI_PORT: 8081
       SPARK_PUBLIC_DNS: localhost

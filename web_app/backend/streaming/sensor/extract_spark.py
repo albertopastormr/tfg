@@ -7,7 +7,7 @@ if len(sys.argv) < 3:
     sys.exit(0)
 
 print("-------Limpieza buffer--------")
-os.system('rm -rf /usr/src/spark//data_sensor /usr/src/spark//checkpoint_sensor')
+os.system('rm -rf /usr/src/spark/data_sensor /usr/src/spark//checkpoint_sensor')
 print("------------------------------")
 
 spark = SparkSession \
@@ -38,5 +38,5 @@ query = df_socket\
 query.awaitTermination()
 
 print("-------Limpieza buffer--------")
-os.system('rm -rf /usr/src/spark//data_sensor /usr/src/spark//checkpoint_sensor')
+os.system('rm -rf /usr/src/spark/data_sensor /usr/src/spark//checkpoint_sensor')
 print("------------------------------")

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ["0.0.0.0"]
 INSTALLED_APPS = [
     'solar.apps.SolarConfig',
     'monitoring.apps.MonitoringConfig',
+    'optimization.apps.OptimizationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

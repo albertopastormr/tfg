@@ -51,6 +51,7 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^solar/', include('solar.urls'), name='solar'),
     url(r'^monitoring/', include('monitoring.urls'), name='monitoring'),
+    url(r'^optimization/', include('optimization.urls'), name='optimization'),
     url(r'^contact/', contact, name='contact'),
     url(r'^about_us/', about_us, name='about_us'),
     url(r'^repository/', repository, name='repository'),
