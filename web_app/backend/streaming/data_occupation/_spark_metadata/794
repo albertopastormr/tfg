@@ -1,3 +1,3 @@
 v1
-{"path":"file:///usr/src/spark/data_occupation/part-00000-b2ef677e-88aa-4fb1-ae6f-2f32cfc6d832-c000.csv","size":49,"isDir":false,"modificationTime":1600368322000,"blockReplication":1,"blockSize":33554432,"action":"add"}
-{"path":"file:///usr/src/spark/data_occupation/part-00001-a3686de7-3656-42c1-8921-5bf529994b52-c000.csv","size":3,"isDir":false,"modificationTime":1600368322000,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///usr/src/spark/data_occupation/part-00000-ae958d21-6ef2-4ae8-b9ee-1fa3910f3cc8-c000.csv","size":48,"isDir":false,"modificationTime":1600459086000,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///usr/src/spark/data_occupation/part-00001-17d1a30a-1123-4f83-a68e-715689932af8-c000.csv","size":3,"isDir":false,"modificationTime":1600459086000,"blockReplication":1,"blockSize":33554432,"action":"add"}

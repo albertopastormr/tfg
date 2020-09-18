@@ -1,2 +1,3 @@
 v1
-{"path":"file:///usr/src/spark/data_occupation/part-00000-96b1b16f-f0b7-43c1-80ae-649d98e076f2-c000.csv","size":49,"isDir":false,"modificationTime":1600368269000,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///usr/src/spark/data_occupation/part-00000-a556f4f6-bd06-44b6-88b2-467c87686227-c000.csv","size":49,"isDir":false,"modificationTime":1600459032000,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///usr/src/spark/data_occupation/part-00001-249123b2-9e21-46de-abd8-6125eadc5259-c000.csv","size":3,"isDir":false,"modificationTime":1600459032000,"blockReplication":1,"blockSize":33554432,"action":"add"}
