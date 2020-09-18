@@ -58,7 +58,7 @@
                 {% endif %}
                 {% if request.user|has_group:"energy_manager" or user.is_staff %}
                     <li class="cd-side__item cd-side__item--has-children cd-side__item--overview js-cd-item--has-children">
-                        <a href="/optimization/">Optimization</a></li>
+                        <a href="https://hub.gke.mybinder.org/user/albertopastormr-gn-optimization-w609b5hc/notebooks/solar_optimum.ipynb">Optimization</a></li>
                     </li>
                 {% endif %}
                 {% if request.user|has_group:"energy_manager" or request.user|has_group:"responsible_supplies" or request.user|has_group:"maintenance" or user.is_staff %}
