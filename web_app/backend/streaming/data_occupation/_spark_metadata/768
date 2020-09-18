@@ -1,3 +1,0 @@
-v1
-{"path":"file:///usr/src/spark/data_occupation/part-00000-4ecf41a5-a9a9-4ed1-b086-e13973d72393-c000.csv","size":48,"isDir":false,"modificationTime":1600459047000,"blockReplication":1,"blockSize":33554432,"action":"add"}
-{"path":"file:///usr/src/spark/data_occupation/part-00001-870222b0-2946-4a5d-84be-cd801ffad1bd-c000.csv","size":3,"isDir":false,"modificationTime":1600459047000,"blockReplication":1,"blockSize":33554432,"action":"add"}
