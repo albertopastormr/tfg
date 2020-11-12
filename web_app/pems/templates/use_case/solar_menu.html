@@ -1,0 +1,298 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<style>
+    h1 {
+        margin: 15px 0;
+        font-weight: 400;
+    }
+
+    .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+
+    .testbox form{
+        width: 50%;
+    }
+
+    input,
+    select,
+    textarea {
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input {
+        width: calc(100% - 10px);
+        padding: 5px;
+    }
+
+    select {
+        width: 100%;
+        padding: 7px 0;
+        background: transparent;
+    }
+
+    textarea {
+        width: calc(100% - 6px);
+    }
+
+    .item {
+        position: relative;
+        margin: 10px 0;
+    }
+
+    .item:hover p,
+    .item:hover i {
+        color: #095484;
+    }
+
+    input:hover,
+    select:hover,
+    textarea:hover {
+        box-shadow: 0 0 5px 0 #095484;
+    }
+
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #095484;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0666a3;
+    }
+
+    @media (min-width: 568px) {
+
+        .name-item,
+        .city-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .name-item input,
+        .city-item input {
+            width: calc(50% - 20px);
+        }
+
+        .city-item select {
+            width: calc(50% - 8px);
+        }
+    }
+
+    #control_specific{
+        border: grey solid 1.2px;
+        padding: 1em;
+        border-radius: 1%;
+    }
+
+    #pageloader{
+        background: rgba( 255, 255, 255, 0.8 );
+        display: none;
+        height: 100%;
+        position: fixed;
+        width: 100%;
+        z-index: 9999;
+    }
+
+    #pageloader img{
+        left: 50%;
+        margin-left: -32px;
+        margin-top: -32px;
+        position: absolute;
+        top: 50%;
+    }
+
+</style>
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#panels').hide();
+
+            $("#select_where").change(function () {
+                var val = $(this).val();
+                if (val == "1") {
+                    $("#map").attr("src", "https://www.openstreetmap.org/export/embed.html?bbox=-3.73523622751236%2C40.451851835732946%2C-3.731695711612702%2C40.45368465644744&amp;layer=mapnik")
+                } else if (val == "4") {
+                    $("#map").attr("src", "https://www.openstreetmap.org/export/embed.html?bbox=-3.7356197834014897%2C40.439030898123285%2C-3.7285387516021733%2C40.442697188855874&amp;layer=mapnik")
+                }else{
+                    $("#map").attr("src", "https://www.openstreetmap.org/export/embed.html?bbox=-3.743698596954346%2C40.44394237574253%2C-3.7153744697570805%2C40.45860526744504&amp;layer=mapnik")
+                }
+            });
+
+            $("#consume").change(function () {
+                var val = $(this).val();
+                if (val != "1") {
+                    $('#panels').show();
+                } else{
+                    $('#panels').hide();
+                }
+            });
+
+            $('#batteries_fields').hide();
+            $('#consume_batteries').hide();
+            
+            $("#batteries_control").change(function () {
+                var val = $(this).val();
+                if (val == "1") {
+                    $('#batteries_fields').hide();
+                    $('#consume_batteries').hide();
+                } else if (val == "2") {
+                    $('#batteries_fields').show();
+                    $('#consume_batteries').show();
+                } else{
+                    $('#batteries_fields').hide();
+                    $('#consume_batteries').hide();
+                }
+            });
+
+            $("#myform").on("submit", function(){
+                $("#pageloader").fadeIn();
+            });
+        });
+    </script>
+</head>
+
+<div id="pageloader">
+    <img src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/images/loader-large.gif" alt="processing..." />
+</div>
+
+<div class="testbox">
+    <form action="{% url 'solar_report' %}" method="GET" id="myform">
+
+        <h1>Solar inform request</h1>
+        <iframe id="map" width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-3.743698596954346%2C40.44394237574253%2C-3.7153744697570805%2C40.45860526744504&amp;layer=mapnik"
+            style="border: 2px solid black; pointer-events:none; opacity: 0.8;"></iframe><br />
+
+        <div class="item">
+            <p>Center</p>
+            <select id="select_where" name="center">
+                <option value="1" selected>Computer Science Faculty</option>
+                <option value="4">Parking Architect Lopez Otero</option>
+            </select>
+        </div>
+
+        <div class="item">
+            <p>Date</p>
+                <select name="date">
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016" selected="selected">2016</option>
+                </select>
+        </div>
+
+        <div class="item">
+            <p>Specific Fields</p>
+        </div>
+        <div id="control_specific">
+            <div>
+                <div class="item">
+                    <p>Kpis</p>
+                    <select id="select_type_report" name="kpi">
+                        <option value="1">None</option>
+                        <option value="2">All</option>
+                        <option value="3">Solar only</option>
+                        <option value="4">Sensor only</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <div class="item">
+                    <p>Energy Reactive vs Active</p>
+                    <select name="active_reactive">
+                        <option value="1">None</option>
+                        <option value="2">Yes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="item">
+                <p>Consume</p>
+                <div class="city-item" >
+                    <select id="consume" name="consume">
+                        <option value="1">None</option>
+                        <option value="2">All</option>
+                        <option value="3">Hourly</option>
+                        <option value="4">Month</option>
+                    </select>
+                    <input  id="panels" name="panels" type="text" placeholder="Nº Solar Panels" />
+                </div>
+            </div>
+
+            <div class="item">
+                <p>Batteries</p>
+                <div class="city-item" >
+                    <select id="batteries_control" name="batteries_control">
+                        <option value="1">None</option>
+                        <option value="2">Yes</option>
+                    </select>
+                    <input  id="consume_batteries" name="consume_batteries" type="text" placeholder="Nº Solar Panels" />
+                </div>
+
+            </div>
+
+            <div id="batteries_fields">
+                <div class="item">
+                    <p>Batteries Fields</p>
+                </div>
+                <div id="control_specific">
+                    <div class="item">
+                        <p>Nº Serie Batteries</p>
+                        <input  id="n_serie_batteries" name="n_serie_batteries" type="text" />
+                    </div>
+        
+                    <div class="item">
+                        <p>Battery Power</p>
+                        <input  id="batteries_power" name="batteries_power" type="text" />
+                    </div>
+
+                    <div class="item">
+                        <p>Minimal Discharging Percent</p>
+                        <input  id="minimal_dicharging_percent" name="minimal_dicharging_percent" type="text" placeholder="Example 50%: 50" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-block">
+            <input type="submit" value="SEND">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

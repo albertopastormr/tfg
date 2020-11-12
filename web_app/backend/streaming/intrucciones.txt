@@ -1,0 +1,9 @@
+Intrucciones para lanzar el extractor en tiempo real
+
+1. Lanzamos socket_server.py con ip y puerto. Normalmente localhost y 1234
+2. Lanzamos el extract_spark que coge las lineas
+    2.1 Se lanza internamente el unificador de archivos csv
+    2.2 Se lanza otro proceso de spark que realiza los calculos con el csv añadiendo las operaciones necesarias
+
+cd /usr/src/spark/
+bash control_spark.sh localhost 4444 apa_arq_lop_ote

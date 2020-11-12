@@ -1,0 +1,14 @@
+xmltodict
+plotly
+plotly-express
+django-utils
+django
+bs4
+requests
+pyyaml
+selenium==3.7.0
+matplotlib
+psycopg2-binary
+# uwsgi>=2.0,<2.1 
+# dj-database-url>=0.5,<0.6
+netcat

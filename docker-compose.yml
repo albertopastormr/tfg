@@ -1,0 +1,98 @@
+version: '3.7'
+
+services:
+  web: # django
+    build: ./web_app
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./web_app/:/usr/src/app/
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./web_app/pems/.env.dev
+    links:
+      - selenium
+  selenium:
+    image: selenium/standalone-chrome-debug:3.7.1
+    volumes:
+      - ./web_app/data/:/home/seluser/Downloads/
+    ports:
+      - 4444:4444
+      - 5900:5900
+
+  # SPARK
+  master:
+    image: gettyimages/spark
+    command: bash -c "(bin/spark-class org.apache.spark.deploy.master.Master -h master &) && (/usr/src/spark/control_spark.sh localhost 1234)"
+    hostname: master
+    environment:
+      MASTER: spark://master:7077
+      SPARK_CONF_DIR: /conf
+      SPARK_PUBLIC_DNS: localhost
+    expose:
+      - 7001
+      - 7002
+      - 7003
+      - 7004
+      - 7005
+      - 7006
+      - 7077
+      - 6066
+    ports:
+      - 4040:4040
+      - 6066:6066
+      - 7077:7077
+      - 9080:8080
+    volumes:
+      - ./conf/master:/conf
+      - ./data:/tmp/data
+      - ./web_app/data/:/tmp/datasets
+      - ./web_app/backend/streaming:/usr/src/spark/
+  worker-1:
+    image: gettyimages/spark
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
+    hostname: worker-1
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 4
+      SPARK_WORKER_MEMORY: 3g
+      SPARK_WORKER_PORT: 8881
+      SPARK_WORKER_WEBUI_PORT: 8081
+      SPARK_PUBLIC_DNS: localhost
+    links:
+      - master
+    expose:
+      - 7012
+      - 7013
+      - 7014
+    ports:
+      - 8081:8081
+    volumes:
+      - ./conf/worker:/conf
+      - ./data:/tmp/data
+      - ./web_app/data/:/tmp/datasets
+      - ./web_app/backend/streaming:/usr/src/spark/
+  worker-2:
+    image: gettyimages/spark
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
+    hostname: worker-2
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 4
+      SPARK_WORKER_MEMORY: 3g
+      SPARK_WORKER_PORT: 8881
+      SPARK_WORKER_WEBUI_PORT: 8081
+      SPARK_PUBLIC_DNS: localhost
+    links:
+      - master
+    expose:
+      - 7015
+      - 7016
+      - 8881
+    ports:
+      - 8082:8082
+    volumes:
+      - ./conf/worker:/conf
+      - ./data:/tmp/data
+      - ./web_app/data/:/tmp/datasets
+      - ./web_app/backend/streaming:/usr/src/spark/

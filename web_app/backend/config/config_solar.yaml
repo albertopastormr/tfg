@@ -1,0 +1,28 @@
+1:
+  name: Facultad de informatica
+  latitude: '40.568'
+  longitude: '-3.505'
+  2016:
+  - directory: 0
+    format: json
+    path: ./data/general/2016/PVdata_webscraper.json
+    type: hourly
+4:
+  name: Aparcamiento Arquitecto Lopez Otero
+  latitude: '40.568'
+  longitude: '-3.505'
+  2016:
+  - directory: 0
+    format: json
+    path: ./data/general/2016/PVdata_webscraper.json
+    type: hourly
+  2015:
+  - directory: 0
+    format: json
+    path: ./data/general/2015/PVdata_webscraper.json
+    type: hourly
+  2013:
+  - directory: 0
+    format: json
+    path: ./data/general/2013/PVdata_webscraper.json
+    type: hourly

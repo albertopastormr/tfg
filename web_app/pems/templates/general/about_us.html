@@ -1,0 +1,103 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+
+<style>
+  /* Three columns side by side */
+.column {
+  float: left;
+  width: 30%;
+  margin: 1.1%;
+  padding: 0 8px;
+}
+
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+/* Add some shadows to create a card effect */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card img{
+    padding: 1.5em;
+    display:block;
+    margin:auto;
+    border: solid 3px #1c1c21;
+    border-radius: 2%;
+    width: 75%;
+}
+
+.card p, h2{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Some left and right padding inside the container */
+.container {
+  padding: 0 16px;
+}
+
+/* Clear floats */
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+</style>
+
+</nav>
+
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <img src="{% static 'img/jorge.jpg' %}" alt="Jorge">
+      <div class="container">
+        <h2>Jorge J. Gómez Sanz</h2>
+        <p class="title">Director del proyecto</p>
+        <p>Vicerrector de Tecnología y Sostenibilidad - Universidad Complutense de Madrid</p>
+          <p><strong>Correo:</strong> jjgomez@ucm.es</p>
+        <p><strong>Linkedin:</strong> https://www.linkedin.com/in/jorgegomezsanz/</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+     <div class="card">
+      <img src="{% static 'img/ivan.jpg' %}" alt="Ivan" style="width: 78.5%">
+      <div class="container">
+        <h2>Iván Fernández Mena</h2>
+        <p class="title">Desarrolador del proyecto</p>
+        <p>Estudiante de Ingenieria del Software - Universidad Complutense de Madrid</p>
+        <p><strong>Correo:</strong> ivafer05@ucm.es</p>
+        <p><strong>Linkedin:</strong> https://www.linkedin.com/in/ivanfermena/</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+     <div class="card">
+      <img src="{% static 'img/alberto.jpg' %}" alt="Ivan" style="width: 84%">
+      <div class="container">
+        <h2>Alberto Pastor Moreno</h2>
+        <p class="title">Desarrolador del proyecto</p>
+        <p>Estudiante de Ingenieria del Software - Universidad Complutense de Madrid</p>
+        <p><strong>Correo:</strong> albpas01@ucm.es</p>
+        <p><strong>Linkedin:</strong> https://www.linkedin.com/in/albertopastormr/</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

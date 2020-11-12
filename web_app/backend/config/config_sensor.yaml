@@ -1,0 +1,18 @@
+1:
+  name: Facultad de informatica
+  latitude: '40.568'
+  longitude: '-3.505'
+  2018:
+  - directory: 0
+    format: csv
+    path: data/sensor/fac_inf/2018_input_sensor.csv
+    type: input
+4:
+  name: Aparcamiento Arquitecto Lopez Otero
+  latitude: '40.568'
+  longitude: '-3.505'
+  2018:
+  - directory: 0
+    format: csv
+    path: data/sensor/apa_arq_lop_ote/2018_input_sensor.csv
+    type: input

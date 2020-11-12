@@ -1,0 +1,176 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+.landing-section {
+	padding-top: 8rem;
+	padding-bottom: 2.125rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+	text-align: center;
+}
+
+.landing-section img{
+    display:block;
+    margin:auto;
+}
+
+.landing-section ul {
+    list-style-type: circle;
+    margin-left: 2rem;
+    margin-bottom: 3rem;
+}
+
+.text_landing{
+    margin-top: 3rem;
+    text-align: left;
+}
+
+.text_landing img {
+    margin: auto;
+}
+.brand {
+  margin: 0;
+  color: #2a1b53;
+}
+</style>
+
+</nav>
+  <section class="landing-section landing-main">
+    <div class="landing-section-content">
+      <h1 class="brand">Platform Energy Management System</h1>
+      <p class="landing-main-text">
+          <div class="text_landing">
+          Actualmente estamos atravesando una época de revolución de los datos. Esto está impulsado por, principalmente,
+          las nuevas capacidades tecnológicas. Las tecnologías fundamentales que cambian la forma en la que reunimos,
+          almacenamos, analizamos y transformamos la información han mejorado notoriamente en la última década.
+          Paradigmas de desarrollo tecnológico como Internet of Things han conseguido encontrarle rentabilidad
+          al tratamiento de los datos. Gracias a esto, múltiples industrias han puesto el foco sobre los datos,
+          invirtiendo en su gestión y explotación, contribuyendo así a la mejora de las tecnologías involucradas.
+
+          <br><br>
+
+            La industria energética se ha visto beneficiada del uso de estas tecnologías. Al analizar sus datos
+          han conseguido ser más eficientes, ahorrando tiempo y dinero en la gestión energética.
+          El uso de la información obtenida por el análisis es esencial en la toma de decisiones:
+          permite reducir la incertidumbre y que, consecuentemente, se aumente la eficacia en el
+          uso de la energía. Obtener beneficios de la gestión energética en la mayoría de organizaciones
+          es una acción que está sujeta no solo al análisis de la energía que se consume,
+          sino múltiples métricas externas. Algunas de estas métricas son la ocupación de los edificios,
+          el uso porcentual de energías limpias y la disminución de la producción de CO2.
+          Para satisfacer todas estas métricas, es necesario considerar en los análisis muchos aspectos.
+          Esta gran cantidad de factores que rodean a la gestión energética la convierten en un problema muy
+          complejo pero muy relevante y necesario para la sociedad.
+
+          <br><br>
+
+            Un Energy Management System(EMS) es una herramienta software que permite supervisar, optimizar y
+          gestionar el uso de energías de diferentes tipos (normalmente electricidad, gas o agua) de una
+          instalación elétrica. Una plataforma EMS facilita realizar seguimientos y análisis técnico de las
+          instalaciones sobre las cuales ha sido instalado. El uso de un EMS está enfocado normalmente en identificar
+          posibilidades de ahorro y eficiencia para mejorar el uso energético. Los EMS le otorgan beneficios claves
+          a una organización, debido a que éstas, normalmente, emplean mucho esfuerzo en obtener conocimiento que
+          resulte relevante en su gestión energética. Beneficios como la capacidad de tomar decisiones respaldadas
+          por los datos o de optimizar el consumo energético para reducir desperdicios, son algunos de los más
+          importantes. Una gestión energética eficiente conduce a mejoras tanto económicas como medioambientales.
+
+           <br><br>
+
+            Es también importante destacar el uso de un EMS para la superación de un certificado de gestión energética
+          como es el ISO 50001. Este estándar implanta una política energética que facilita la identificación y
+          priorización de los aspectos energéticos de una organización en pos de la eficiencia. Evaluar el
+          cumplimiento de los requisitos legales o establecer objetivos de mejora en la optimización son
+          algunos de los aspectos del ISO 50001 que se pueden tratar con un EMS.
+          Además, los análisis realizados en un EMS ayudan a las auditorías externas y a establecer procedimientos
+          de control y seguimiento. ISO 50001 busca la mejora continua del uso energético, algo que un EMS facilitará
+          en gran medida.
+
+           <br><br>
+
+           <img src="{% static 'img/plat-flow-espec.png' %}" alt="arquitectura">
+
+            <h3>Proyecto</h3>
+
+            <br><br>
+
+            Este proyecto tiene como principal objetivo desarrollar un Energy Management System que se constituya como
+            una solución de software libre al problema de la gestión energética. Nuestra propuesta facilita la gestión y
+            monitorización de la energía eléctrica a través del tratamiento y explotación de datos. Este uso de los datos
+            permitirá realizar análisis energéticos exhaustivos de instalaciones. Junto al uso de datos de estimaciones de
+            uso de energía solar, datos de ocupación de los centros y técnicas de optimización multiobjetivo, nuestro EMS
+            facilitará, entre otros aspectos, la toma de decisiones pertinentes a instalaciones energéticas.
+            Al ser software libre, las organizaciones que lo utilicen no tendrán que incurrir en costes.
+            De esta forma, la plataforma ayuda a que más organizaciones tengan acceso a una herramienta de este tipo.
+            Además, permite que ocurra el desarrollo colaborativo. Gracias a esto, el sistema mejoraría con las
+            contribuciones de los usuarios.
+
+            <br><br>
+
+            Otro de los objetivos del proyecto es cumplir en lo máximo posible con la necesidad de la Universidad
+            Complutense de Madrid de disponer de una forma sencilla y unificada de analíticas energéticas de los centros de
+            los que dispone. Dado que se espera que el sistema sea accedido por todo tipo de perfiles, expertos en el uso
+            de las nuevas tecnologías o no, se ha dispuesto de una plataforma web sencilla en interacción y usabilidad,
+            sin necesidad de manuales ni guías de usuario.
+
+            <br><br>
+
+            En el desarrollo de la plataforma EMS hemos buscado poder proporcionar las siguientes posibilidades a
+            los usuarios:
+
+            <br><br>
+
+            <ul>
+                <li>
+                    <strong>Conocer el comportamiento del consumo energético:</strong> Los datos de los que disponen los responsables de
+                    las instalaciones necesitan de un tratamiento que, si fuera manual, tomaría demasiado tiempo y costes.
+                    Por ello, realizar pre-procesamiento de estos datos en crudo y mostrarlos en gráficas ricas agregando
+                    datos de forma automática, le aporta mucho valor a un EMS. De esta forma, se consigue conocer el
+                    comportamiento del consumo. Además, los cruces de información de consumo de instalaciones con una
+                    instalación hipotética de energías limpias, en particular de energía fotovoltaica, sería inviable
+                    si no fuera realizado con un sistema como el que planteamos. Por esto, este proyecto ofrece, además,
+                    el poder indagar en el impacto que supondría el uso de esta fuente de energía verde en el consumo de
+                    una instalación. <br>
+
+                    El apoyo de la energía fotovoltaica impacta directamente en la reducción de costes,
+                    convirtiendo a un centro en más autónomo. Además, su consumo será más responsable con el medio ambiente.
+                    Es por esto por lo que la visualización de datos temporales agregados incluyendo la energía
+                    fotovoltaica tiene un gran peso en nuestra plataforma.
+                </li>
+                <br>
+                <li>
+                    <strong>Calcular configuraciones óptimas de instalaciones fotovoltaicas</strong>: La reducción de
+                    costes asociados al consumo no se puede realizar de forma trivial y directa; los obstáculos que
+                    encontramos a la hora de diseñar la configuración energética de una instalación requieren la
+                    optimización simultánea de más de un objetivo. En el proyecto se tienen en cuenta factores
+                    como la reducción al máximo del consumo de electricidad de la red con un coste de inversión mínimo
+                    y el uso de la mejor configuración posible de energía solar. De esta forma, incluimos energía solar
+                    siempre y cuando reduzca los costes, considerando factores como la vida media de las baterías, el
+                    mantenimiento de éstas o el coste de instalación. Introducir varias métricas diferentes puede
+                    generar conflictos entre objetivos, que harán que la mejora de uno de ellos dé lugar a un
+                    empeoramiento de algún otro. Por eso, en el proyecto un objetivo importante es el uso de
+                    técnicas de optimización multiobjetivo que hagan llegar a una situación de compromiso en
+                    la que todos los objetivos sean satisfechos en un grado aceptable, dando lugar a conocimiento
+                    útil en la toma de decisiones presupuestarias.
+                </li>
+                <br>
+                <li>
+                    <strong>Monitorizar el consumo en tiempo real</strong>: Utilizando un sistema de avisos, es relevante
+                    analizar si el consumo en cada momento supera al consumo esperado. Si fuera así, sería posible conocer
+                    en tiempo real si la configuración de una instalación ha alterado el consumo negativamente. Dado que
+                    el consumo está asociado al uso de las instalaciones por parte de los usuarios, es relevante conocer
+                    la ocupación del centro. Así, el sistema puede estipular con más precisión qué es considerado como
+                    normales. Además, también permite realizar estudios de tendencias con datos del consumo asociado a
+                    la ocupación de un edificio en tiempo real según se obtengan de origen.
+                </li>
+            </ul>
+
+            <img src="{% static 'img/spark-etl.png' %}" alt="spark-arquitectura">
+
+        </div>
+      </p>
+    </div>
+  </section>
+</div>
+
+{% endblock %}

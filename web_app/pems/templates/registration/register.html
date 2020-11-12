@@ -1,0 +1,183 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<style>
+
+    body { background:rgb(30,30,40); color: white}
+    form { max-width:70%; margin:50px auto; }
+
+    h1 {
+        margin: 15px 0;
+        font-weight: 400;
+        color: white;
+    }
+
+    .testbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        padding: 3px;
+    }
+
+    input,
+    select,
+    textarea {
+        color:white;
+          font-family: Helvetica, Arial, sans-serif;
+          font-weight:500;
+          font-size: 18px;
+          border-radius: 5px;
+          line-height: 22px;
+          background-color: transparent;
+          border:2px solid #CC6666;
+          transition: all 0.3s;
+          padding: 13px;
+          margin-bottom: 15px;
+          width:100%;
+          box-sizing: border-box;
+          outline:0;
+    }
+
+    select option {
+        color:white;
+        background-color: rgb(30,30,40);
+    }
+
+    textarea {
+        width: calc(100% - 6px);
+    }
+
+    .item {
+        position: relative;
+        margin: 10px 0;
+    }
+
+    .item:hover p,
+    .item:hover i {
+        color: #CC6666;
+    }
+
+    input:hover,
+    textarea:hover {
+        box-shadow: 0 0 5px 0 #CC6666;
+    }
+
+    .btn-block {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        width: 150px;
+        padding: 10px;
+        border: none;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #CC6666;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #CC6666;
+    }
+
+    @media (min-width: 568px) {
+
+        .name-item,
+        .city-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .name-item input,
+        .city-item input {
+            width: calc(50% - 20px);
+        }
+
+        .city-item select {
+            width: calc(50% - 8px);
+        }
+    }
+</style>
+
+<div class="testbox">
+    <form action="/">
+        <h1>Request Access for User</h1>
+        <div class="item">
+            <p>Name</p>
+            <div class="name-item">
+                <input type="text" name="name" placeholder="First" />
+                <input type="text" name="name" placeholder="Last" />
+            </div>
+        </div>
+        <div class="item">
+            <p>Address</p>
+            <input type="text" name="name" placeholder="Street address" />
+            <input type="text" name="name" placeholder="Street address line 2" />
+            <div class="city-item">
+                <input type="text" name="name" placeholder="City" />
+                <input type="text" name="name" placeholder="Region" />
+                <input type="text" name="name" placeholder="Postal / Zip code" />
+                <select>
+                    <option value="" selected>Country</option>
+                    <option value="1">Spain</option>
+                    <option value="2">Germany</option>
+                    <option value="3">France</option>
+                    <option value="4">China</option>
+                    <option value="5">USA</option>
+                    <option value="6">Other</option>
+                </select>
+            </div>
+        </div>
+        <div class="item">
+            <p>Your Job</p>
+            <div class="city-item">
+                <select>
+                    <option value="" selected>Job</option>
+                    <option value="1">Student</option>
+                    <option value="2">Teacher</option>
+                    <option value="3">Energy Manager</option>
+                    <option value="4">Energy Maintenance</option>
+                    <option value="5">Responsible Supplies</option>
+                    <option value="5">Other</option>
+                </select>
+                <input type="text" name="name" placeholder="Workplace" />
+            </div>
+        </div>
+        <div class="item">
+            <p>Access to request</p>
+            <div class="city-item">
+                <select>
+                    <option value="" selected>Sections</option>
+                    <option value="1">Energy Informs</option>
+                    <option value="2">Monitoring in real time</option>
+                    <option value="3">Predictions multi-objective</option>
+                    <option value="5">Other</option>
+                </select>
+                <input type="text" name="name" placeholder="Other" />
+            </div>
+        </div>
+        <div class="item">
+            <p>Please Explain, the reasons for the request</p>
+            <textarea rows="5"></textarea>
+        </div>
+        <div class="item">
+            <p>Email</p>
+            <input type="text" name="name" />
+        </div>
+        <div class="btn-block">
+            <button type="submit" href="/">SEND</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
