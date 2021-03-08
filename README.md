@@ -21,7 +21,7 @@ To start the project, a script has been created that starts everything necessary
 $ ./up.sh
 ```
 
-When it is finished working or using the platform, it is necessary to remove the running containers. For that it is launched:
+Once you are done, it is necessary for you to remove the running containers. You can do this using:
 
 ``` bash
 $ ./down.sh
@@ -50,9 +50,9 @@ Or by launching docker commands like the following commands and see if you have 
 
 ## Data
 
-The data is drawn from two main sources:
+The data is retrieved from two sources:
 
-- Consumption sensors from the Complutense University of Madrid.
+- Sensors that register energy consumption from the hundreds of buildings from Complutense University of Madrid.
 
 - Photovoltaic energy information from the European website: [PHOTOVOLTAIC GEOGRAPHICAL INFORMATION SYSTEM](https://re.jrc.ec.europa.eu/pvg_tools/en/tools.html)
 
@@ -65,7 +65,3 @@ The data is drawn from two main sources:
 - Iván Fernández Mena:
     - [Github](https://github.com/ivanfermena)
     - [Linkedin](https://www.linkedin.com/in/ivanfermena/)
-
-## Contributing
-
-## Licence
